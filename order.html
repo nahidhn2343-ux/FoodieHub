@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Foodie Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="img/logo1.png" class="logo" alt="Logo"></a>
+        <ul id="navbar">
+               <li><a href="index.html">Home</a></li>
+               <li><a href="login.html">Login</a></li>
+               <li><a href="meno.html">Meno</a></li>
+               <li><a href="reservation.html">Reservation</a></li>
+               <li><a href="offers.html">Offers</a></li>
+               <li><a class="active" href="order.html">Track Order</a></li>
+               <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a></li>
+            </ul>
+            <div id="mobile">
+              <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+              <i id="bar" class="fa-solid fa-bars"></i>
+            </div>
+    </section>
+
+    <section id="track-order-container" class="section-p1">
+        <div class="tracking-wrapper" id="main-tracking-ui" style="display: none;">
+            <div class="tracking-top">
+                <div class="order-meta">
+                    <h2 id="display-order-id">Order <strong>#FH-0000</strong></h2>
+                    <p>Expected Arrival: <span id="arrival-time">Calculating...</span></p>
+                </div>
+                <div class="status-indicator">
+                    <span class="badge badge-preparing" id="status-badge">Pending</span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="stepper-section">
+                <ul class="stepper">
+                    <li class="step-item" id="step-placed">
+                        <div class="step-icon"><i class="fa-solid fa-receipt"></i></div>
+                        <div class="step-text">
+                            <h5>Order Placed</h5>
+                            <p id="placed-time">--:--</p>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step-preparing">
+                        <div class="step-icon"><i class="fa-solid fa-fire-burner"></i></div>
+                        <div class="step-text">
+                            <h5>Preparing</h5>
+                            <p>Chef is cooking</p>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step-way">
+                        <div class="step-icon"><i class="fa-solid fa-motorcycle"></i></div>
+                        <div class="step-text">
+                            <h5>On the Way</h5>
+                            <p>Delivery in progress</p>
+                        </div>
+                    </li>
+                    <li class="step-item" id="step-delivered">
+                        <div class="step-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                        <div class="step-text">
+                            <h5>Delivered</h5>
+                            <p>Enjoy your meal!</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tracking-dashboard">
+                <div class="map-view">
+                    <div class="map-box" style="width: 100%; height: 350px; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                     <iframe 
+                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.90244238814!2d90.3910801!3d23.7508666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8bd530f0f5b%3A0x7940183021f1567f!2sPanthapath%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1710000000000" 
+                       width="100%" 
+                       height="100%" 
+                       style="border:0;" 
+                       allowfullscreen="" 
+                       loading="lazy" 
+                       referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                   </div>
+                </div>
+                <div class="delivery-details">
+                    <div class="driver-card">
+                        <img src="img/driver.gif" alt="Driver">
+                        <div class="driver-info">
+                            <h4 id="driver-name">Assigning...</h4>
+                            <p>Pro Delivery Partner</p>
+                        </div>
+                        <a href="tel:+880123456" id="call-driver" class="call-action"><i class="fa-solid fa-phone"></i></a>
+                    </div>
+                    <div class="order-summary-mini">
+                        <h4>Order Summary</h4>
+                        <div id="dynamic-items">
+                            </div>
+                        <hr>
+                        <div class="item-row total">
+                            <span>Total</span>
+                            <span id="final-total">$0.00</span>
+                        </div>
+                        <button id="cancel-btn" style="width: 100%; padding: 10px; background: #ff4d4d; color: white; border: none; border-radius: 5px; margin-top: 10px; cursor: pointer; display: none;">Cancel Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="no-order-msg" style="text-align: center; padding: 50px;">
+            <h3>Please enter your Order ID to track your food!</h3>
+        </div>
+    </section>
+
+
+    <footer class="section-p1">
+        <div class="col">
+            <img src="img/logo1.png" class="logo" alt="Footer Logo">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong> 453 Wellington Road, Street 32, San Francisco</p>
+            <p><strong>Hours: </strong> 24/7</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i><i class="fab fa-twitter"></i><i class="fab fa-instagram"></i><i class="fab fa-pinterest-p"></i><i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy & Conditions</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="img/appleplay.gif" alt="App Store">
+                <img src="img/google play.jpg" alt="Google Play">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="img/pay.png" alt="Payment Gateways">
+        </div>
+
+        <div class="copyright">
+            <p>©️ 2026, Foodie Hub - HTML CSS Ecommerce Template</p>
+        </div>
+    </footer>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import firebaseConfig from "./firebase-config.js";
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const searchInput = document.getElementById('order-search-input');
+        const trackingUI = document.getElementById('main-tracking-ui');
+        const noOrderMsg = document.getElementById('no-order-msg');
+
+        searchInput.addEventListener('change', (e) => {
+            const orderId = e.target.value.trim().replace('#', '');
+            if (!orderId) return;
+
+            // রিয়েল-টাইম ডাটা ট্র্যাকিং
+            onSnapshot(doc(db, "orders", orderId), (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.data();
+                    showTracking(orderId, data);
+                } else {
+                    noOrderMsg.innerHTML = "<h3>Order ID not found. Please check again!</h3>";
+                    trackingUI.style.display = 'none';
+                }
+            });
+        });
+
+        function showTracking(id, data) {
+            noOrderMsg.style.display = 'none';
+            trackingUI.style.display = 'block';
+
+            // বেসিক তথ্য সেট করা
+            document.getElementById('display-order-id').innerHTML = `Order <strong>#${id}</strong>`;
+            document.getElementById('final-total').innerText = `$${data.total}`;
+            document.getElementById('placed-time').innerText = data.orderTime || "Just Now";
+            document.getElementById('status-badge').innerText = data.status || "In Progress";
+            
+            // আইটেম লিস্ট দেখানো
+            const itemsContainer = document.getElementById('dynamic-items');
+            itemsContainer.innerHTML = "";
+            if(data.cartItems) {
+                data.cartItems.forEach(item => {
+                    itemsContainer.innerHTML += `
+                        <div class="item-row">
+                            <span>${item.name} x${item.qty}</span>
+                            <span>$${(item.price * item.qty).toFixed(2)}</span>
+                        </div>`;
+                });
+            }
+
+            // সময় হিসেব করা
+            const orderTimestamp = new Date(data.fullTimestamp).getTime();
+            const now = new Date().getTime();
+            const diffMin = Math.floor((now - orderTimestamp) / 60000);
+
+            // সব স্টেপ রিসেট করা
+            const steps = ['step-placed', 'step-preparing', 'step-way', 'step-delivered'];
+            steps.forEach(s => document.getElementById(s).classList.remove('completed', 'active'));
+
+            // ১. Order Placed (সবসময় সম্পন্ন)
+            document.getElementById('step-placed').classList.add('completed');
+
+            // ২. ১০ মিনিট পর Preparing (অটোমেটিক)
+            if (diffMin >= 10 || data.status === "Preparing") {
+                document.getElementById('step-placed').classList.add('completed');
+                document.getElementById('step-preparing').classList.add('active');
+            }
+
+            // ৩. এডমিন কনফার্ম করলে On the Way
+            if (data.status === "Confirmed" || data.status === "On the Way") {
+                document.getElementById('step-preparing').classList.add('completed');
+                document.getElementById('step-way').classList.add('active');
+            }
+
+            // ৪. ৪০ মিনিট পর Delivered (অটোমেটিক)
+            if (diffMin >= 40 || data.status === "Delivered") {
+                document.getElementById('step-way').classList.add('completed');
+                document.getElementById('step-delivered').classList.add('active');
+                document.getElementById('arrival-time').innerText = "Arrived";
+            } else {
+                document.getElementById('arrival-time').innerText = "In 30-40 mins";
+            }
+
+            // ক্যানসেল বাটন (১৫ মিনিটের মধ্যে ক্যানসেল করা যাবে যদি এডমিন কনফার্ম না করে)
+            const cancelBtn = document.getElementById('cancel-btn');
+            if (data.status !== "Confirmed" && diffMin < 15) {
+                cancelBtn.style.display = 'block';
+                cancelBtn.onclick = async () => {
+                    if(confirm("Are you sure you want to cancel?")) {
+                        await deleteDoc(doc(db, "orders", id));
+                        alert("Order Cancelled.");
+                        location.reload();
+                    }
+                };
+            } else {
+                cancelBtn.style.display = 'none';
+            }
+        }
+    </script>
+    <script src="app.js"></script>
+    <script src="script.js"> </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="header">
+    <a href="index.html"><img src="img/logo1.png" class="logo" alt="Logo"></a>
+    
+    <div>
+        <ul id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="meno.html">Meno</a></li>
+            <li><a href="reservation.html">Reservation</a></li>
+            <li><a class="active" href="offers.html">Offers</a></li>
+            <li><a href="order.html">Track Order</a></li>
+            <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a></li>
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-bars"></i>
+    </div>
+</section>
+
+<section id="offers-header" class="section-p1">
+    <h2>Unbeatable Deals & Flavors</h2>
+    <p>Grab your favorites before the clock runs out! Exclusive discounts just for you.</p>
+</section>
+
+<section id="offers-grid" class="section-p1">
+    <div class="offers-container" id="dynamic-offers-container">
+        <div class="offer-box">
+            <img src="img/offer1.jpg" alt="Offer 1">
+            <button class="buy-now-corner" onclick="addToCart({id:'off1', name:'Special Deal 1', price:15, img:'img/offer1.jpg'})">Buy Now</button>
+        </div>
+
+        <div class="offer-box">
+            <img src="img/offer2.jpg" alt="Offer 2">
+            <button class="buy-now-corner" onclick="addToCart({id:'off2', name:'Combo Feast 2', price:25, img:'img/offer2.jpg'})">Buy Now</button>
+        </div>
+
+        <div class="offer-box">
+            <img src="img/offer3.jpg" alt="Offer 3">
+            <button class="buy-now-corner" onclick="addToCart({id:'off3', name:'Family Pack 3', price:40, img:'img/offer3.jpg'})">Buy Now</button>
+        </div>
+
+        <div class="offer-box">
+            <img src="img/offer4.jpg" alt="Offer 4">
+            <button class="buy-now-corner" onclick="addToCart({id:'off4', name:'Value Meal 4', price:12, img:'img/offer4.jpg'})">Buy Now</button>
+        </div>
+
+        <div class="offer-box">
+            <img src="img/offer5.jpg" alt="Offer 5">
+            <button class="buy-now-corner" onclick="addToCart({id:'off5', name:'Midnight Deal 5', price:18, img:'img/offer5.jpg'})">Buy Now</button>
+        </div>
+
+        <div class="offer-box">
+            <img src="img/offer6.jpg" alt="Offer 6">
+            <button class="buy-now-corner" onclick="addToCart({id:'off6', name:'Holiday Special 6', price:30, img:'img/offer6.jpg'})">Buy Now</button>
+        </div>
+
+    </div>
+</section>
+
+    <section id="newsletter" class="section-p1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img src="img/logo1.png" class="logo" alt="Footer Logo">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong> 453 Wellington Road, Street 32, San Francisco</p>
+            <p><strong>Hours: </strong> 24/7</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i><i class="fab fa-twitter"></i><i class="fab fa-instagram"></i><i class="fab fa-pinterest-p"></i><i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy & Conditions</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="img/appleplay.gif" alt="App Store">
+                <img src="img/google play.jpg" alt="Google Play">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="img/pay.png" alt="Payment Gateways">
+        </div>
+
+        <div class="copyright">
+            <p>©️ 2026, Foodie Hub - HTML CSS Ecommerce Template</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import firebaseConfig from "./firebase-config.js";
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const offerContainer = document.getElementById('dynamic-offers-container');
+
+        // অ্যাডমিন প্যানেলের 'offers' কালেকশন থেকে ডেটা পড়া
+        onSnapshot(collection(db, "offers"), (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    const data = change.doc.data();
+                    const id = change.doc.id;
+                    
+                    const offerDiv = document.createElement('div');
+                    offerDiv.className = 'offer-box';
+                    offerDiv.innerHTML = `
+                        <img src="${data.image}" alt="${data.name}">
+                        <button class="buy-now-corner">Buy Now</button>
+                    `;
+
+                    // বাটনে ক্লিক করলে কার্টে অ্যাড হওয়ার লজিক
+                    offerDiv.querySelector('button').onclick = () => {
+                        addToCart({
+                            id: id,
+                            name: data.name,
+                            price: parseFloat(data.price),
+                            img: data.image
+                        });
+                    };
+
+                    // নতুন অফারটি সবার উপরে দেখানোর জন্য
+                    offerContainer.prepend(offerDiv);
+                }
+            });
+        });
+    </script>
+    <script src="app.js"></script>
+    <script src="script.js"> </script>
+</body>
+</html>

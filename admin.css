@@ -1,0 +1,788 @@
+
+/* Admin Panel Specific Styles */
+.admin-body {
+    background-color: #f4f7fe;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.admin-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: #001529; /* Dark Navy as per image context */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar .logo h2 {
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    padding: 15px 10px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.sidebar nav ul li a {
+    color: #a6adb4;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sidebar nav ul li.active, .sidebar nav ul li:hover {
+    background-color: #1890ff; /* Bright blue as per reference image */
+}
+
+.sidebar nav ul li.active a, .sidebar nav ul li:hover a {
+    color: white;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 40px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.search-bar {
+    background: #f0f2f5;
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    margin-left: 10px;
+    outline: none;
+    width: 100%;
+}
+
+.stats-cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    flex: 1;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-left: 5px solid transparent;
+}
+
+.card.blue { border-left-color: #1890ff; }
+.card.green { border-left-color: #52c41a; }
+.card.orange { border-left-color: #fa8c16; }
+
+.table-container {
+    background: white;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 2px solid #f0f2f5;
+    color: #8c8c8c;
+}
+
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.status.completed {
+    background: #e6f7ff;
+    color: #1890ff;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: 2000; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff; 
+    width: 90%; 
+    max-width: 500px; 
+    padding: 25px; 
+    border-radius: 15px; 
+    position: relative; 
+    max-height: 85vh; 
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-modal {
+    position: absolute; 
+    right: 20px; 
+    top: 15px; 
+    font-size: 28px; 
+    cursor: pointer;
+    color: #333;
+}
+
+#modal-customer-info {
+    margin: 15px 0;
+    line-height: 1.6;
+    color: #444;
+}
+
+.modal-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 12px; 
+    border-bottom: 1px solid #f0f0f0; 
+    padding-bottom: 10px; 
+}
+
+.modal-item img { 
+    width: 65px; 
+    height: 65px; 
+    border-radius: 10px; 
+    object-fit: cover; 
+    border: 1px solid #ddd;
+}
+
+/* কাস্টমার নামের ওপর ক্লিক করার স্টাইল */
+.customer-name-click {
+    cursor: pointer;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.customer-name-click:hover {
+    text-decoration: underline;
+    color: #3498db;
+}
+
+
+/* Sidebar Active State highlight */
+.sidebar nav ul li.active {
+    background-color: #3498db; /* Blue highlight */
+    border-radius: 8px;
+}
+
+.sidebar nav ul li.active a {
+    color: white !important;
+}
+
+/* Delete Icon Color */
+.fa-trash-can, .fa-trash {
+    color: #e74c3c;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.fa-trash:hover {
+    transform: scale(1.2);
+}
+
+/* Modal Simple Style */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+}
+.modal-content {
+    background: white; padding: 25px; border-radius: 12px; width: 400px;
+}
+
+:root {
+    --primary-green: #4f772d;
+    --light-green: #90a955;
+    --bg-white: #f8f9fa;
+    --sidebar-bg: #132a13;
+    --text-dark: #31572c;
+}
+
+.admin-body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f1f3f0;
+}
+
+.admin-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar .logo h2 {
+    color: #ecf39e;
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+.sidebar nav ul li.active {
+    background-color: var(--light-green);
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 40px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.search-bar {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    width: 100%;
+}
+
+/* Sale Specific Styling */
+.top-stats-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.main-sale-card {
+    background: var(--primary-green);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    flex: 1;
+    box-shadow: 0 10px 20px rgba(79, 119, 45, 0.2);
+}
+
+.main-sale-card h2 { font-size: 32px; margin: 10px 0; }
+.main-sale-card .trend { font-size: 12px; opacity: 0.8; }
+
+.breakdown-container {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    flex: 2;
+}
+
+.breakdown-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.b-card {
+    border-right: 1px solid #eee;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.b-card:last-child { border-right: none; }
+.b-card span { font-size: 13px; color: #777; }
+.b-card h4 { font-size: 18px; margin-top: 5px; color: var(--text-dark); }
+
+/* Chart Styling */
+.chart-container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-controls select {
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-left: 10px;
+    background: #f9f9f9;
+}
+
+.placeholder-chart {
+    height: 250px;
+    background: #f9fdf9;
+    border: 2px dashed #90a955;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #90a955;
+    font-weight: bold;
+}
+
+
+
+
+
+
+/* Root Variables */
+:root {
+    --primary-green: #4f772d;
+    --light-green: #90a955;
+    --sidebar-bg: #132a13;
+    --bg-body: #f1f3f0;
+    --white: #ffffff;
+    --text-dark: #31572c;
+    --danger-red: #e74c3c;
+    --edit-blue: #3498db;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-body);
+}
+
+.admin-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar .logo h2 {
+    color: #ecf39e;
+    font-size: 22px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+.sidebar nav ul li a {
+    color: #a6adb4;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar nav ul li:hover, 
+.sidebar nav ul li.active {
+    background-color: var(--light-green);
+}
+
+.sidebar nav ul li.active a, 
+.sidebar nav ul li:hover a {
+    color: white;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px 40px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-title h1 {
+    font-size: 24px;
+    color: var(--sidebar-bg);
+    margin: 0;
+}
+
+/* Buttons */
+.add-product-btn {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(79, 119, 45, 0.2);
+}
+
+.add-product-btn:hover {
+    background-color: var(--sidebar-bg);
+    transform: translateY(-2px);
+}
+
+/* Table Styling - জটমুক্ত করার জন্য আপডেট করা হয়েছে */
+.product-table-container {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.table-header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f1f3f0;
+    padding-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    text-align: left;
+    padding: 15px;
+    color: #777;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+table td {
+    padding: 20px 15px; /* প্যাডিং বাড়ানো হয়েছে যাতে জট না পাকায় */
+    border-bottom: 1px solid #f1f3f0;
+    vertical-align: middle;
+}
+
+.prod-img {
+    width: 60px; /* সাইজ কিছুটা বাড়ানো হয়েছে */
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.price-tag {
+    color: var(--primary-green);
+    font-weight: 600;
+}
+
+.offer-badge {
+    background: #fff4e6;
+    color: #fd7e14;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Action Icons */
+.action-btns {
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+}
+
+.edit-icon { color: var(--edit-blue); cursor: pointer; transition: 0.2s; }
+.delete-icon { color: var(--danger-red); cursor: pointer; transition: 0.2s; }
+
+.edit-icon:hover, .delete-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Modal / Pop-up Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: 600;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+/* ফাইল ইনপুট স্টাইল */
+.form-group input[type="file"] {
+    padding: 8px;
+    background: #f8f9fa;
+    border: 1px dashed var(--light-green);
+}
+
+.modal-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.save-btn {
+    flex: 1;
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    background: var(--sidebar-bg);
+}
+
+.cancel-btn {
+    flex: 1;
+    background: #eee;
+    color: #333;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+/* Custom Styles for Offer Page */
+:root {
+    --primary-color: #f39c12; /* অফারের জন্য গোল্ডেন/অরেঞ্জ কালার */
+    --sidebar-bg: #102d48;
+    --text-dark: #2c3e50;
+    --bg-light: #f4f7f6;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-light);
+}
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Copy from your logic */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    color: white;
+    padding: 20px;
+}
+.sidebar .logo h2 { color: var(--primary-color); text-align: center; margin-bottom: 30px; }
+.sidebar ul { list-style: none; padding: 0; }
+.sidebar ul li { padding: 12px 15px; border-radius: 8px; margin-bottom: 5px; }
+.sidebar ul li.active { background: var(--primary-color); }
+.sidebar ul li a { color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+
+/* Main Content */
+.main-content { flex: 1; padding: 30px; }
+.admin-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.add-offer-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.add-offer-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+/* Table Styling */
+.offer-grid-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th { text-align: left; padding: 15px; border-bottom: 2px solid #eee; color: #777; font-size: 14px; }
+td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: middle; }
+
+.table-img { width: 60px; height: 45px; border-radius: 6px; object-fit: cover; }
+
+.badge-discount {
+    background: #ebfaef;
+    color: #27ae60;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.btn-icon-edit { color: #3498db; cursor: pointer; margin-right: 15px; font-size: 18px; }
+.btn-icon-delete { color: #e74c3c; cursor: pointer; font-size: 18px; }
+
+/* Modal Styling */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;
+}
+.modal-content {
+    background: white; padding: 30px; border-radius: 15px; width: 450px;
+}
+.form-group { margin-bottom: 15px; }
+.form-row { display: flex; gap: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px; }
+.form-group input, .form-group textarea {
+    width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; outline: none;
+}
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.cancel-btn { background: #eee; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+.save-btn { background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }

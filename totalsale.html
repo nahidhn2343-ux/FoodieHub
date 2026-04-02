@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Sale Dashboard - Foodie Hub</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="logo"><h2>FOODIE HUB</h2></div>
+            <nav>
+                <ul>
+                    <li><a href="admin-ds.html"><i class="fa-solid fa-satellite-dish"></i> Live Orders</a></li>
+                    <li><a href="table-booking.html"><i class="fa-solid fa-table"></i> Table Booking</a></li>
+                    <li class="active"><a href="totalsale.html"><i class="fa-solid fa-chart-line"></i> Total Sale</a></li>
+                    <li><a href="submit-product.html"><i class="fa-solid fa-plus-circle"></i> Submit Food</a></li>
+                    <li><a href="submit-offer.html"><i class="fa-solid fa-tags"></i> Submit Offer</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer"><a href="index.html"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></div>
+        </aside>
+
+        <main class="main-content">
+            <header class="admin-header">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Type here to search...">
+                </div>
+            </header>
+
+            <section class="dashboard-overview">
+                <div class="top-stats-row">
+                    <div class="main-sale-card">
+                        <p>Total Revenue (Orders)</p>
+                        <h2 id="total-sale-amount">$ 0.00</h2>
+                        <span class="trend">~ Live from Database</span>
+                    </div>
+                    <div class="breakdown-container">
+                        <p class="section-title">Sale Breakdown</p>
+                        <div class="breakdown-cards">
+                            <div class="b-card">
+                                <span>Total Orders Amount</span>
+                                <h4 id="total-orders-money">$ 0.00</h4>
+                            </div>
+                            <div class="b-card">
+                                <span>Completed Amount</span>
+                                <h4 id="completed-money">$ 0.00</h4>
+                            </div>
+                            <div class="b-card">
+                                <span>In Process Amount</span>
+                                <h4 id="process-money">$ 0.00</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div>
+                            <p>Weekly Sales Analytics</p>
+                            <h2 id="chart-total-amount">$ 0.00</h2>
+                        </div>
+                        <div class="filter-controls">
+                            <select id="year-filter">
+                                <option value="2025">2025</option>
+                                <option value="2026" selected>2026</option>
+                            </select>
+                            <select id="month-filter">
+                                <option value="0">January</option>
+                                <option value="1">February</option>
+                                <option value="2" selected>March</option>
+                                <option value="3">April</option>
+                                <option value="4">May</option>
+                                <option value="5">June</option>
+                                <option value="6">July</option>
+                                <option value="7">August</option>
+                                <option value="8">September</option>
+                                <option value="9">October</option>
+                                <option value="10">November</option>
+                                <option value="11">December</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sale-bar-chart" style="height: 350px; padding: 20px; position: relative;">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import firebaseConfig from "./firebase-config.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let salesChart;
+    const canvas = document.getElementById('salesChart');
+    const ctx = canvas.getContext('2d');
+
+    // ১. চার্ট সেটআপ ফাংশন
+    function setupChart(weeklyData = [0, 0, 0, 0, 0, 0, 0]) {
+        if (salesChart) salesChart.destroy();
+        salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                datasets: [{
+                    label: 'Sales ($)',
+                    data: weeklyData,
+                    backgroundColor: '#6b9e4a',
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { 
+                    y: { beginAtZero: true, grid: { color: '#f0f0f0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    // ২. ডাটাবেস থেকে ডাটা ফেচ এবং ক্যালকুলেশন
+    function loadDashboardData() {
+        const selectedYear = parseInt(document.getElementById('year-filter').value);
+        const selectedMonth = parseInt(document.getElementById('month-filter').value);
+
+        // রিয়েল টাইম ডাটা লিসেনার
+        onSnapshot(collection(db, "orders"), (snapshot) => {
+            let totalRevenue = 0;
+            let completedAmt = 0;
+            let processAmt = 0;
+            let weeklyData = [0, 0, 0, 0, 0, 0, 0];
+            let chartTotal = 0;
+
+            snapshot.forEach((docSnap) => {
+                const order = docSnap.data();
+                
+                // ফিক্স ১: আপনার ডাটাবেসে ফিল্ডের নাম 'total', 'totalPrice' নয়।
+                // ফিক্স ২: "$ 23.33" থেকে ডলার চিহ্ন সরিয়ে নাম্বারে রূপান্তর।
+                const rawTotal = order.total ? order.total.toString().replace(/[^\d.]/g, '') : "0";
+                const amount = parseFloat(rawTotal) || 0;
+                
+                const status = order.status;
+                const orderDate = new Date(order.orderTime);
+                
+                // ১. লাইভ ডাটাবেস থেকে সর্বমোট রেভিনিউ
+                totalRevenue += amount;
+
+                // ২. ফিল্টার অনুযায়ী ক্যালকুলেশন (বছর এবং মাস মিললে)
+                if (!isNaN(orderDate.getTime()) && 
+                    orderDate.getFullYear() === selectedYear && 
+                    orderDate.getMonth() === selectedMonth) {
+                    
+                    chartTotal += amount;
+                    
+                    // বার চার্টের জন্য দিনের ইনডেক্স
+                    const dayIndex = orderDate.getDay();
+                    weeklyData[dayIndex] += amount;
+
+                    // স্ট্যাটাস অনুযায়ী ভাগ করা
+                    if (status === "Confirmed" || status === "Delivered") {
+                        completedAmt += amount;
+                    } else {
+                        processAmt += amount;
+                    }
+                }
+            });
+
+            // UI আপডেট
+            document.getElementById('total-sale-amount').innerText = `$ ${totalRevenue.toFixed(2)}`;
+            document.getElementById('total-orders-money').innerText = `$ ${chartTotal.toFixed(2)}`;
+            document.getElementById('completed-money').innerText = `$ ${completedAmt.toFixed(2)}`;
+            document.getElementById('process-money').innerText = `$ ${processAmt.toFixed(2)}`;
+            document.getElementById('chart-total-amount').innerText = `$ ${chartTotal.toFixed(2)}`;
+
+            setupChart(weeklyData);
+        });
+    }
+
+    // ফিল্টার চেঞ্জ ইভেন্ট
+    document.getElementById('year-filter').addEventListener('change', loadDashboardData);
+    document.getElementById('month-filter').addEventListener('change', loadDashboardData);
+
+    // প্রথমবার লোড
+    loadDashboardData();
+</script>
+</body>
+</html>

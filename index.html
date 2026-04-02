@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="header">
+    <a href="index.html"><img src="img/logo1.png" class="logo" alt="Logo"></a>
+    
+    <div class="search-wrapper">
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search products...">
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+    </div>
+    
+    <div>
+        <ul id="navbar">
+            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="meno.html">Meno</a></li>
+            <li><a href="reservation.html">Reservation</a></li>
+            <li><a href="offers.html">Offers</a></li>
+            <li><a href="order.html">Track Order</a></li>
+            <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a></li>
+            <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-bars"></i>
+    </div>
+</section>
+
+    <section id="hero">
+        <h2>Good Food, Good Mood, Good Times</h2>
+        <h1>Fresh Ingredients, Unforgettable taste</h1>
+        <p>indulge in a variety of experience a dinig journey like never before</p>
+        <button onclick="window.location.href='reservation.html'">Book a Table</button>
+    </section>
+
+    <section id="feature" class="section-p1">
+        <div class="fe-box">
+            <img src="img/quickdb.jpg" alt="">
+            <h6>Quick Deliver</h6>
+        </div>
+        <div class="fe-box">
+            <img src="img/supayment.jpg" alt="">
+            <h6> Secure Payment</h6>
+        </div> 
+        <div class="fe-box">
+            <img src="img/frcooked.jpg" alt="">
+            <h6>Freshiy Cooked </h6>
+        </div> 
+        <div class="fe-box">
+            <img src="img/tablerb.jpg" alt="">
+            <h6>Table Reservation</h6>
+        </div> 
+        <div class="fe-box">
+            <img src="img/spoffer.jpg" alt="">
+            <h6> Special Offers</h6>
+        </div> 
+        <div class="fe-box">
+            <img src="img/hykitchen.jpg" alt="">
+            <h6>Hygienic Kitchen</h6>
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>Our Most Delicacies</h2>
+        <p>Experience the perfection of hand-crafted meals made with the finest seasonal ingredients.</p>
+        <div class="pro-container" id="dynamic-products-home">
+            <div class="pro">
+                <img src="img/food1.jpg" alt="">
+                <div class="des">
+                    <span>Spaghetti</span>
+                    <h5>Classic Italian pasta</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4>$9</h4>
+                </div>
+                <a href="javascript:void(0)" onclick="addToCart({id:'h1', name:'Classic Italian pasta', price:9, img:'img/food1.jpg'})"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+
+            <div class="pro">
+                <img src="img/food2.jpg" alt="">
+                <div class="des">
+                    <span>Pepperoni Pizza</span>
+                    <h5>Cheesy pepperoni Feast</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4>$7.45</h4>
+                </div>
+                <a href="javascript:void(0)" onclick="addToCart({id:'h2', name:'Cheesy pepperoni Feast', price:7.45, img:'img/food2.jpg'})"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+
+            <div class="pro">
+                <img src="img/food3.jpg" alt="">
+                <div class="des">
+                    <span>Spaghetti</span>
+                    <h5>Classic Italian pasta</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4>$10.87</h4>
+                </div>
+                <a href="javascript:void(0)" onclick="addToCart({id:'h3', name:'Classic Italian pasta v2', price:10.87, img:'img/food3.jpg'})"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+
+            <div class="pro">
+                <img src="img/food4.jpg" alt="">
+                <div class="des">
+                    <span>Pancakes</span>
+                    <h5>Fluffy Blueberry Pancskes</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4>$5.87</h4>
+                </div>
+                <a href="javascript:void(0)" onclick="addToCart({id:'h4', name:'Fluffy Blueberry Pancskes', price:5.87, img:'img/food4.jpg'})"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+
+            <div class="pro">
+                <img src="img/food5.jpg" alt="">
+                <div class="des">
+                    <span>BBQ Wings Platter</span>
+                    <h5>BBQ Chicken Wings With Fries and Salad</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4>$11.87</h4>
+                </div>
+                <a href="javascript:void(0)" onclick="addToCart({id:'h5', name:'BBQ Chicken Wings Platter', price:11.87, img:'img/food5.jpg'})"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+
+            <div class="pro">
+                <img src="img/food6.jpg" alt="">
+                <div class="des">
+                    <span>Biryani</span>
+                    <h5>Signature Hyderabadi Biryani</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4>$8.47</h4>
+                </div>
+                <a href="javascript:void(0)" onclick="addToCart({id:'h6', name:'Signature Hyderabadi Biryani', price:8.47, img:'img/food6.jpg'})"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+
+            <div class="pro">
+                <img src="img/food7.jpg" alt="">
+                <div class="des">
+                    <span>Sizzling Beef</span>
+                    <h5>Smoky Grilled Beef Sizzler</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4>$14.86</h4>
+                </div>
+                <a href="javascript:void(0)" onclick="addToCart({id:'h7', name:'Smoky Grilled Beef Sizzler', price:14.86, img:'img/food7.jpg'})"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+
+            <div class="pro">
+                <img src="img/food8.jpg" alt="">
+                <div class="des">
+                    <span>Chicken Shawarma Roll</span>
+                    <h5>Grilled Kebab Shawarma Sandwich</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4>$3.87</h4>
+                </div>
+                <a href="javascript:void(0)" onclick="addToCart({id:'h8', name:'Grilled Kebab Shawarma Sandwich', price:3.87, img:'img/food8.jpg'})"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+        </div>
+    </section> 
+
+    <section id="newsletter" class="section-p1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img src="img/logo1.png" class="logo" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong> 453 Wellington Road, Street 32, San Francisco</p>
+            <p><strong>Hours: </strong> 24/7</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i><i class="fab fa-twitter"></i><i class="fab fa-instagram"></i><i class="fab fa-pinterest-p"></i><i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy & Conditions</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="img/appleplay.gif" alt="">
+                <img src="img/google play.jpg" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="img/pay.png" alt="">
+        </div>
+
+        <div class="copyright">
+            <p>©️ 2026, Foodie Hub - HTML CSS Ecommerce Template</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import firebaseConfig from "./firebase-config.js";
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const dynamicContainer = document.getElementById('dynamic-products-home');
+
+        onSnapshot(collection(db, "products"), (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    const data = change.doc.data();
+                    const id = change.doc.id;
+                    
+                    const productDiv = document.createElement('div');
+                    productDiv.className = 'pro';
+                    productDiv.innerHTML = `
+                        <img src="${data.image}" alt="">
+                        <div class="des">
+                            <span>${data.name}</span>
+                            <h5>${data.about || data.name}</h5>
+                            <div class="star">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <h4>$${data.price}</h4>
+                        </div>
+                        <a href="javascript:void(0)" onclick="addToCart({id:'${id}', name:'${data.name}', price:${data.price}, img:'${data.image}'})">
+                            <i class="fa-solid fa-cart-shopping cart"></i>
+                        </a>
+                    `;
+                    dynamicContainer.prepend(productDiv);
+                }
+            });
+        });
+    </script>
+    <script src="app.js"></script>
+    <script src="script.js"> </script>
+</body>
+</html>

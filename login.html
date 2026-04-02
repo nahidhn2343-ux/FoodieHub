@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Foodie Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="login-body">
+
+<section id="header">
+    <a href="index.html"><img src="img/logo1.png" class="logo" alt="Logo"></a>
+    <div>
+        <ul id="navbar">
+           <li><a href="index.html">Home</a></li>
+           <li><a class="active" href="login.html">Login</a></li>
+           <li><a href="meno.html">Meno</a></li>
+           <li><a href="reservation.html">Reservation</a></li>
+           <li><a href="offers.html">Offers</a></li>
+           <li><a href="order.html">Track Order</a></li>
+           <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a></li>
+           <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+        </ul>
+    </div>
+    <div id="mobile">
+        <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+        <i id="bar" class="fa-solid fa-bars"></i>
+    </div>
+</section>
+
+<script src="script.js"></script>
+    <div class="login-split">
+        <div class="left-side orange-theme">
+            <div class="image-container">
+                <img src="img/login3.jpg" class="main-img" alt="Healthy Food">
+            </div>
+            <div class="lightning-pattern"></div>
+        </div>
+
+        <div class="right-side">
+            <div class="form-container">
+                <h1>WELCOME BACK TO FOODIE HUB!</h1>
+
+                <div class="auth-tabs">
+                    <button id="signup-tab-btn" class="active shining" onclick="openAuth('signup', this)">Sign Up</button>
+                    <button id="login-tab-btn" onclick="openAuth('login', this)">Login</button>
+                    <button id="admin-tab-btn" onclick="openAuth('admin', this)">Admin Login</button>
+                </div>
+
+                <div id="signup" class="auth-form" style="display:block;">
+                    <input type="text" id="signup-first-name" placeholder="First Name" required>
+                    <input type="text" id="signup-last-name" placeholder="Last Name" required>
+                    <input type="email" id="signup-email" placeholder="Email Address" required>
+                    <input type="password" id="signup-pass" placeholder="Password" required>
+                    <button class="btn-green" onclick="handleSignUp()">Next</button>
+                    <p class="verification-note">A verification link will be sent to your email.</p>
+                </div>
+
+                <div id="login" class="auth-form" style="display:none;">
+                    <input type="email" id="login-email" placeholder="Email Address" required>
+                    <input type="password" id="login-pass" placeholder="Password" required>
+                    <a href="#" class="forgot-pass">Forgot Password?</a>
+                    <button class="btn-green" onclick="handleLogin()">Login</button>
+                </div>
+
+                <div id="admin" class="auth-form" style="display:none;">
+                    <input type="email" id="admin-email" placeholder="Admin Email" required>
+                    <input type="password" id="admin-pass" placeholder="Admin Password" required>
+                    <button class="btn-green" onclick="handleAdminLogin()">Login as Admin</button>
+                    <p class="verification-note">Email verification is required for security.</p>
+                </div>
+
+                <div class="form-footer">
+                    <p>OR</p>
+                    <div class="social-login">
+                        <button class="btn-google" onclick="handleGoogleLogin()">
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        <button class="btn-facebook" onclick="handleFacebookLogin()">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </button>
+                    </div>
+                    <p class="no-account">Don't have an account? Sign Up now</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img src="img/logo1.png" class="logo" alt="Footer Logo">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong> 453 Wellington Road, Street 32, San Francisco</p>
+            <p><strong>Hours: </strong> 24/7</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-pinterest-p"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy & Conditions</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="img/appleplay.gif" alt="App Store">
+                <img src="img/google play.jpg" alt="Google Play">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="img/pay.png" alt="Payment Gateways">
+        </div>
+        <div class="copyright">
+            <p>©️ 2026, Foodie Hub - HTML CSS Ecommerce Template</p>
+        </div>
+    </footer>
+
+    <script>
+        function openAuth(formId, element) {
+            const forms = document.querySelectorAll('.auth-form');
+            forms.forEach(form => form.style.display = 'none');
+            
+            const tabs = document.querySelectorAll('.auth-tabs button');
+            tabs.forEach(tab => tab.classList.remove('active', 'shining'));
+            
+            document.getElementById(formId).style.display = 'block';
+            element.classList.add('active');
+            if(formId === 'signup') { element.classList.add('shining'); }
+        }
+    </script>
+
+    <script type="module" src="auth.js"></script>
+    
+x
+
+</body>
+</html>

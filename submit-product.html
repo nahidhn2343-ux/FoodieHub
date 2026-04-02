@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Product - Foodie Hub Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="admin-container">
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>FOODIE HUB</h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="admin-ds.html"><i class="fa-solid fa-satellite-dish"></i> Live Orders</a></li>
+                <li><a href="table-booking.html"><i class="fa-solid fa-utensils"></i> Table Booking</a></li>
+                <li><a href="totalsale.html"><i class="fa-solid fa-chart-line"></i> Total Sale</a></li>
+                <li class="active"><a href="submit-product.html"><i class="fa-solid fa-plus-circle"></i> Submit Food</a></li>
+                <li><a href="submit-offer.html"><i class="fa-solid fa-tags"></i> Submit Offers </a></li>
+            </ul>
+        </nav>
+          <div class="sidebar-footer"><a href="index.html"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></div>
+    </aside>
+
+    <main class="main-content">
+        <header class="admin-header">
+            <div class="header-title">
+                <h1>Product Management</h1>
+            </div>
+            <button class="add-product-btn" id="openAddModal">
+                <i class="fa-solid fa-plus"></i> Add Product
+            </button>
+        </header>
+
+        <div class="product-table-container">
+            <div class="table-header">
+                <h3>Product List (<span id="product-count">0</span>)</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">PID</th>
+                        <th style="width: 15%;">Image</th>
+                        <th style="width: 30%;">Product Name</th>
+                        <th style="width: 15%;">Price</th>
+                        <th style="width: 10%;">Offer</th>
+                        <th style="width: 15%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list-body">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<div class="modal-overlay" id="productModal" style="display: none;">
+    <div class="modal-content">
+        <h3 id="modalTitle">Add New Product</h3>
+        
+        <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" id="m-name" placeholder="e.g. Beef Burger">
+        </div>
+
+        <div class="form-group">
+            <label>Price ($)</label>
+            <input type="number" id="m-price" placeholder="e.g. 250">
+        </div>
+
+        <div class="form-group">
+            <label>Offer (%)</label>
+            <input type="number" id="m-offer" placeholder="0">
+        </div>
+
+        <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" id="m-img" placeholder="https://image-link.com">
+        </div>
+
+        <div class="form-group">
+            <label>About Product</label>
+            <textarea id="m-about" rows="3" placeholder="Brief description..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+            <button class="cancel-btn" id="closeModalBtn">Cancel</button>
+            <button class="save-btn" id="saveBtn">Save Product</button>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, doc, deleteDoc, setDoc, addDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import firebaseConfig from "./firebase-config.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const productListBody = document.getElementById('product-list-body');
+    const productCountEl = document.getElementById('product-count');
+    const productModal = document.getElementById('productModal');
+    const saveBtn = document.getElementById('saveBtn');
+    
+    let editId = null; // এডিট করার সময় আইডি ট্র্যাকিং এর জন্য
+
+    // --- ১. প্রোডাক্ট লিস্ট লোড করার ফাংশন ---
+    onSnapshot(collection(db, "products"), (snapshot) => {
+        productListBody.innerHTML = "";
+        let count = 0;
+
+        snapshot.forEach((docSnap) => {
+            const product = docSnap.data();
+            const id = docSnap.id;
+            count++;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>#${id.substring(0, 6).toUpperCase()}</td>
+                <td><img src="${product.image}" alt="img" style="width:40px; height:40px; border-radius:5px; object-fit:cover;"></td>
+                <td>${product.name}</td>
+                <td>$${product.price}</td>
+                <td>${product.offer || 0}%</td>
+            `;
+
+            // --- Action Column (Edit & Delete Button) ---
+            const actionTd = document.createElement('td');
+            
+            // Edit Button
+            const editBtn = document.createElement('i');
+            editBtn.className = "fa-solid fa-pen-to-square";
+            editBtn.style = "color: #3498db; cursor: pointer; margin-right: 15px;";
+            editBtn.onclick = () => openModal('edit', id, product);
+
+            // Delete Button
+            const deleteBtn = document.createElement('i');
+            deleteBtn.className = "fa-solid fa-trash";
+            deleteBtn.style = "color: #e74c3c; cursor: pointer;";
+            deleteBtn.onclick = async () => {
+                if(confirm("Delete this product?")) {
+                    await deleteDoc(doc(db, "products", id));
+                }
+            };
+
+            actionTd.appendChild(editBtn);
+            actionTd.appendChild(deleteBtn);
+            tr.appendChild(actionTd);
+            productListBody.appendChild(tr);
+        });
+        productCountEl.innerText = count;
+    });
+
+    // --- ২. মোডাল কন্ট্রোল ফাংশন ---
+    const openModal = (type, id = null, data = null) => {
+        productModal.style.display = "flex";
+        if (type === 'edit') {
+            editId = id;
+            document.getElementById('modalTitle').innerText = "Edit Product";
+            document.getElementById('m-name').value = data.name;
+            document.getElementById('m-price').value = data.price;
+            document.getElementById('m-offer').value = data.offer;
+            document.getElementById('m-img').value = data.image;
+            document.getElementById('m-about').value = data.about || "";
+        } else {
+            editId = null;
+            document.getElementById('modalTitle').innerText = "Add New Product";
+            clearInputs();
+        }
+    };
+
+    const closeModal = () => {
+        productModal.style.display = "none";
+        clearInputs();
+    };
+
+    const clearInputs = () => {
+        document.getElementById('m-name').value = "";
+        document.getElementById('m-price').value = "";
+        document.getElementById('m-offer').value = "";
+        document.getElementById('m-img').value = "";
+        document.getElementById('m-about').value = "";
+    };
+
+    // --- ৩. প্রোডাক্ট সেভ/আপডেট লজিক ---
+    saveBtn.onclick = async () => {
+        const newData = {
+            name: document.getElementById('m-name').value,
+            price: document.getElementById('m-price').value,
+            offer: document.getElementById('m-offer').value,
+            image: document.getElementById('m-img').value,
+            about: document.getElementById('m-about').value
+        };
+
+        try {
+            if (editId) {
+                await updateDoc(doc(db, "products", editId), newData);
+                alert("Product Updated!");
+            } else {
+                await addDoc(collection(db, "products"), newData);
+                alert("Product Added!");
+            }
+            closeModal();
+        } catch (err) {
+            alert("Error: " + err.message);
+        }
+    };
+
+    // ইভেন্ট লিসেনারস
+    document.getElementById('openAddModal').onclick = () => openModal('add');
+    document.getElementById('closeModalBtn').onclick = closeModal;
+</script>
+
+</body>
+</html>

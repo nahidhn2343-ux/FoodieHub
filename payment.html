@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment - Foodie Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+    <div class="form-container" style="max-width: 500px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 15px; text-align: center;">
+        <h2 style="color: #ff523b;">Select Payment Method</h2>
+        <p>Total Payable: <strong id="pay-total"></strong></p>
+        <br>
+        <div class="social-login" style="flex-direction: column; gap: 15px;">
+            <button class="btn-google" style="background: #f4f4f4; color: #333; border: 1px solid #ddd;">
+                <i class="fa-solid fa-credit-card"></i> Debit / Credit Card
+            </button>
+            <button class="btn-google" style="background: #f4f4f4; color: #333; border: 1px solid #ddd;">
+                 Cash on Delivery
+            </button>
+        </div>
+        <br>
+        <button class="btn-green" onclick="showDemoAlert()">Pay Now</button>
+    </div>
+
+    <script>
+        document.getElementById('pay-total').innerText = localStorage.getItem('orderTotal') || "$0.00";
+
+        function showDemoAlert() {
+            // আপনার রিকোয়েস্ট করা পপ-আপ মেসেজ
+            alert("This website is for portfolio and demonstration purposes only. No actual transactions or food sales will be processed through this site.");
+            // মেসেজের পর হোম পেজে ফেরত পাঠানো
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

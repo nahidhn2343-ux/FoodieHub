@@ -1,0 +1,219 @@
+:root {
+    --purple-main: #6c5ce7;
+    --bg-light: #f8f9fd;
+    --text-dark: #2d3436;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+}
+
+.checkout-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 80px;
+    background: #fff;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo-box img {
+    width: 40px;
+    margin-bottom: 50px;
+}
+
+.side-nav .nav-item {
+    text-decoration: none;
+    color: #b2bec3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+    gap: 5px;
+}
+
+/* Shipping Form Styling */
+.main-content {
+    flex: 1;
+    padding: 40px 60px;
+    overflow-y: auto;
+}
+
+.steps-header {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 50px;
+    color: #dfe6e9;
+}
+
+.step.active { color: var(--text-dark); border-bottom: 2px solid var(--purple-main); padding-bottom: 5px; }
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 600px;
+}
+
+.input-group.full { grid-column: span 2; }
+
+.input-group label { display: block; font-size: 12px; color: #636e72; margin-bottom: 8px; }
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+/* Summary Box Styling */
+.order-summary {
+    width: 350px;
+    background: #fff;
+    padding: 40px;
+    border-left: 1px solid #eee;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.summary-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.pay-btn {
+    width: 100%;
+    background: var(--purple-main);
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: 0.3s;
+}
+
+.pay-btn:hover { background: #5649c0; }
+
+
+
+
+
+/* =========================================
+   CHECKOUT PAGE RESPONSIVE 
+   ========================================= */
+
+/* --- iPad/Tablet View (Max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    .checkout-container {
+        flex-direction: column; /* আইপ্যাডে সেকশনগুলো নিচে নিচে আসবে */
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row; /* সাইডবারটি উপরে রো (Row) হিসেবে থাকবে */
+        justify-content: space-around;
+        padding: 10px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .logo-box img {
+        margin-bottom: 0;
+        width: 35px;
+    }
+
+    .main-content {
+        padding: 30px;
+    }
+
+    /* ফর্মগুলো একটার নিচে আরেকটা (Single Column) */
+    .input-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+
+    .input-group.full { grid-column: span 1; }
+
+    /* অর্ডার সামারি নিচে চলে আসবে */
+    .order-summary {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding: 30px;
+    }
+}
+
+/* --- Mobile View (Max-width: 477px) --- */
+@media (max-width: 477px) {
+    .sidebar {
+        padding: 10px 20px;
+        justify-content: space-between;
+    }
+
+    .side-nav span {
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    /* স্টেপস হেডার ছোট করা */
+    .steps-header {
+        gap: 15px;
+        font-size: 12px;
+        margin-bottom: 30px;
+    }
+
+    .form-section h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* ইনপুট ফিল্ড সেটিংস */
+    .input-group input {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #f0f0f0;
+    }
+
+    /* অর্ডার সামারি মোবাইল সেটিংস */
+    .order-summary {
+        padding: 20px;
+    }
+
+    .summary-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .pay-btn {
+        position: sticky;
+        bottom: 10px;
+        box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+    }
+}

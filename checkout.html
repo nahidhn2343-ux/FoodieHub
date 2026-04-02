@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Foodie Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+    <div class="checkout-container">
+        <aside class="sidebar">
+            <div class="logo-box">
+                <a href="index.html"><img src="img/logo1.png" alt="Logo"></a>
+            </div>
+            <nav class="side-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="steps-header">
+                <span class="step active">Step 01 <b>Shipping</b></span>
+                <span class="step">Step 02 <b>Payment</b></span>
+                <span class="step">Step 03 <b>Review</b></span>
+            </header>
+
+            <section class="form-section">
+                <h2>Contact Information</h2>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text" id="fname" placeholder="Enter First Name">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lname" placeholder="Enter Last Name">
+                    </div>
+                    <div class="input-group full">
+                        <label>Mobile Number</label>
+                        <input type="tel" id="phone" placeholder="01XXXXXXXXX">
+                    </div>
+                    <div class="input-group full">
+                        <label>Address</label>
+                        <input type="text" id="address" placeholder="Street, City, Country">
+                    </div>
+                    <div class="input-group full">
+                        <label>WhatsApp Number (Optional)</label>
+                        <input type="tel" id="whatsapp" placeholder="WhatsApp Number">
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="order-summary">
+            <h3 id="summary-title">Summary</h3>
+            <div id="checkout-items-list" class="summary-items"></div>
+            
+            <div class="total-row" style="display: flex; justify-content: space-between; margin-top: 20px; font-weight: bold; border-top: 1px solid #eee; padding-top: 15px;">
+                <span id="total-label">Total</span>
+                <span id="summary-total-val">$0.00</span>
+            </div>
+            <button id="main-pay-btn" class="pay-btn" onclick="processPayment()">Confirm & Continue</button>
+        </aside>
+    </div>
+
+    <script type="module" src="auth.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const booking = JSON.parse(localStorage.getItem('tempBooking'));
+            const cart = JSON.parse(localStorage.getItem('foodCart')) || [];
+            const itemList = document.getElementById('checkout-items-list');
+            const totalDisplay = document.getElementById('summary-total-val');
+            const summaryTitle = document.getElementById('summary-title');
+            const totalLabel = document.getElementById('total-label');
+            const payBtn = document.getElementById('main-pay-btn');
+
+            let total = 0;
+
+            if (booking) {
+                summaryTitle.innerText = "Booking Summary";
+                totalLabel.innerText = "Fee";
+                payBtn.innerText = "CONFIRM BOOKING";
+                
+                itemList.innerHTML = `
+                    <div class='summary-item' style='padding:15px; background:#fef5ec; border-radius:10px; border-left:4px solid #e67e22;'>
+                        <h5 style='margin-bottom:8px; color:#e67e22;'><i class="fa-solid fa-calendar-check"></i> Table Booking</h5>
+                        <p style='margin:4px 0; font-size:14px;'><strong>Date:</strong> ${booking.date}</p>
+                        <p style='margin:4px 0; font-size:14px;'><strong>Time:</strong> ${booking.time}</p>
+                        <p style='margin:4px 0; font-size:14px;'><strong>Guests:</strong> ${booking.guests} Persons</p>
+                    </div>
+                `;
+                totalDisplay.innerText = "FREE";
+            } else if (cart.length > 0) {
+                summaryTitle.innerText = "Order Summary";
+                cart.forEach(item => {
+                    const price = parseFloat(item.price) || 0;
+                    const qty = parseInt(item.qty) || 1;
+                    total += price * qty;
+                    itemList.innerHTML += `
+                        <div class='summary-item' style='display:flex; align-items:center; gap:15px; margin-bottom:20px;'>
+                            <img src='${item.img || 'img/logo1.png'}' style='width:60px; height:60px; border-radius:10px; object-fit:cover;'>
+                            <div class='item-info'>
+                                <h5 style='margin:0; font-size:15px;'>${item.name}</h5>
+                                <p style='margin:0; font-size:13px; color:#777;'>$${price.toFixed(2)} x ${qty}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                totalDisplay.innerText = `$${total.toFixed(2)}`;
+            }
+        });
+
+        async function processPayment() {
+            const payBtn = document.getElementById('main-pay-btn');
+            
+            const customerData = {
+                fname: document.getElementById('fname').value.trim(),
+                lname: document.getElementById('lname').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                whatsapp: document.getElementById('whatsapp').value.trim()
+            };
+
+            if (!customerData.fname || !customerData.phone || !customerData.address) {
+                alert('Please provide Name, Phone and Address!');
+                return;
+            }
+
+            if (typeof window.placeOrder !== 'function') {
+                alert('System is initializing. Please wait 2 seconds and try again.');
+                return;
+            }
+
+            payBtn.innerText = "Processing...";
+            payBtn.disabled = true;
+
+            try {
+                await window.placeOrder(customerData);
+                localStorage.removeItem('foodCart');
+                localStorage.removeItem('tempBooking');
+                alert("Order Placed Successfully!");
+                window.location.href = "index.html"; 
+            } catch (error) {
+                console.error("Order Error:", error);
+                alert("Failed to place order. Please try again.");
+                payBtn.innerText = "Confirm & Continue";
+                payBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

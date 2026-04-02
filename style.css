@@ -1,0 +1,1948 @@
+/* =========================================
+   1. GOOGLE FONTS & GLOBAL SETTINGS
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'League Spartan', sans-serif;
+}
+
+:root {
+    --primary-color: #a66120;
+    --secondary-color: #f2e7e2;
+    --text-color: #1a1a1a;
+    --white: #ffffff;
+    --dark-navy: #0c203d;
+}
+
+body {
+    width: 100%;
+}
+
+h1 { font-size: 50px; line-height: 64px; color: var(--primary-color); }
+h2 { font-size: 46px; line-height: 54px; color: #222; }
+h4 { font-size: 20px; color: #222; }
+p { font-size: 16px; color: #98a339; margin: 15px 0 20px 0; }
+
+.section-p1 { padding: 40px 80px; }
+.section-m1 { margin: 40px 0; }
+
+/* =========================================
+   2. HEADER & NAVIGATION SECTION
+   ========================================= */
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* প্যাডিং ২০ পিক্সেল থেকে কমিয়ে ১৪ পিক্সেল করা হয়েছে (৩০% কমানো) */
+    padding: 12px 80px; 
+    background: var(--secondary-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    z-index: 999;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+/* লোগো কিছুটা ছোট করা হয়েছে যাতে হেডার চিকন দেখায় */
+.logo { 
+    width: 100px; 
+    height: auto; 
+}
+
+#navbar { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+#navbar li { 
+    list-style: none; 
+    padding: 0 15px; /* প্যাডিং ২০ থেকে কমিয়ে ১৫ করা হয়েছে */
+    position: relative; 
+}
+
+#navbar li a { 
+    text-decoration: none; 
+    font-size: 15px; /* ফন্ট সাইজ সামান্য কমানো হয়েছে */
+    font-weight: 600; 
+    color: var(--text-color); 
+    transition: 0.3s ease; 
+}
+
+#navbar li a:hover, 
+#navbar li a.active { 
+    color: var(--primary-color); 
+}
+
+#navbar li a.active::after, 
+#navbar li a:hover::after {
+    content: "";
+    width: 30%;
+    height: 2px;
+    background: var(--primary-color);
+    position: absolute;
+    bottom: -2px; /* পজিশন কিছুটা উপরে তোলা হয়েছে */
+    left: 15px;
+}
+
+#navbar #close {
+    display: none;
+}
+
+/* --- Search Box Inside Header --- */
+.search-wrapper { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.search-box {
+    position: relative;
+    /* হাইট ৪৫ পিক্সেল থেকে কমিয়ে ৩৬ পিক্সেল করা হয়েছে */
+    height: 30px; 
+    width: 280px;
+    background: #fff;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+#search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 0 12px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.search-btn {
+    /* বাটন সাইজ ৩৬ থেকে কমিয়ে ৩০ পিক্সেল করা হয়েছে */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #222;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn i {
+    font-size: 12px;
+}
+
+.search-btn:hover { 
+    background: var(--primary-color); 
+}
+
+/* --- Mobile Icons (Hidden in Desktop) --- */
+#mobile { 
+    display: none; 
+}
+
+/* =========================================
+   3. HERO SECTION
+   ========================================= */
+#hero {
+    background-image: url("img/hero.jpg");
+    height: 90vh;
+    width: 100%;
+    background-size: cover;
+    background-position: top 25% right 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 80px;
+}
+
+#hero h2 { color: #222; }
+
+#hero button {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#hero button:hover { background-color: #8a4f1a; }
+
+/* =========================================
+   4. FEATURES SECTION
+   ========================================= */
+#feature {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#feature .fe-box {
+    width: 180px;
+    text-align: center;
+    padding: 25px 15px;
+    box-shadow: 20px 20px 34px rgba(0,0,0,0.03);
+    border: 1px solid #bcd0bf;
+    border-radius: 4px;
+    margin: 15px 0;
+    transition: 0.3s ease;
+}
+
+#feature .fe-box:hover { box-shadow: 10px 10px 54px rgba(0,0,0,0.1); }
+
+#feature .fe-box img { width: 100%; margin-bottom: 10px; }
+
+#feature .fe-box h6 {
+    padding: 9px 8px;
+    border-radius: 4px;
+    color: #088178;
+    background-color: #fddde4;
+}
+
+/* =========================================
+   5. PRODUCT SECTION (Home Page)
+   ========================================= */
+#product1 { text-align: center; }
+
+#product1 .pro-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+#product1 .pro {
+    width: 23%;
+    min-width: 250px;
+    padding: 10px 12px;
+    border: 1px solid #cce7d0;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 20px 20px 30px rgba(0,0,0,0.02);
+    margin: 15px 0;
+    transition: 0.2s ease;
+    position: relative;
+}
+
+#product1 .pro:hover { box-shadow: 20px 20px 30px rgba(0,0,0,0.06); }
+
+#product1 .pro img { width: 100%; border-radius: 20px; }
+
+#product1 .pro .des { text-align: start; padding: 10px 0; }
+
+#product1 .pro .des h5 { color: #1a1a1a; font-size: 14px; padding-top: 7px; }
+
+#product1 .pro .des i { font-size: 12px; color: #f3b519; }
+
+#product1 .pro .des h4 { padding-top: 7px; font-size: 15px; color: #088178; font-weight: 700; }
+
+#product1 .pro .cart {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50px;
+    background-color: #e8f6ea;
+    color: #088178;
+    border: 1px solid #cce7d0;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    text-align: center;
+}
+
+/* =========================================
+   6. NEWSLETTER SECTION
+   ========================================= */
+#newsletter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--dark-navy);
+    background-image: url("img/banner/b14.png");
+    background-repeat: no-repeat;
+    background-position: 20% 30%;
+}
+
+#newsletter h4 { color: #fff; font-size: 22px; }
+
+#newsletter p { color: #818ea0; font-size: 14px; }
+
+#newsletter p span { color: #ffbd27; }
+
+#newsletter .form { display: flex; width: 40%; }
+
+#newsletter input {
+    height: 3.125rem;
+    padding: 0 1.25em;
+    width: 100%;
+    border-radius: 4px 0 0 4px;
+    border: none;
+    outline: none;
+}
+
+#newsletter button {
+    background-color: var(--primary-color);
+    color: #fff;
+    white-space: nowrap;
+    border-radius: 0 4px 4px 0;
+    border: none;
+    padding: 0 30px;
+    cursor: pointer;
+}
+
+/* =========================================
+   7. FOOTER SECTION (Refined & Professional)
+   ========================================= */
+footer {
+    background-color: var(--dark-navy); /* আপনার প্রিয় ডার্ক নেভি */
+    padding: 80px 80px 40px 80px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #fff; /* ফুটারের সব টেক্সট সাদা রাখার জন্য */
+}
+
+footer .col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex: 1;
+    min-width: 200px;
+}
+
+footer .logo {
+    margin-bottom: 30px;
+    filter: brightness(0) invert(1); /* লোগো কালো হলে সাদা দেখানোর জন্য (ঐচ্ছিক) */
+}
+
+footer h4 {
+    font-size: 18px;
+    padding-bottom: 20px;
+    color: #fff;
+    font-weight: 700;
+}
+
+footer p {
+    font-size: 14px;
+    color: #b8c1ce; /* হালকা ছাই রঙা টেক্সট যা সাদা ব্যাকগ্রাউন্ডে ভালো লাগে */
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+}
+
+footer a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #b8c1ce;
+    margin-bottom: 12px;
+    transition: 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--primary-color);
+    padding-left: 5px; /* হালকা এনিমেশন */
+}
+
+footer .follow {
+    margin-top: 20px;
+}
+
+footer .follow i {
+    color: #fff;
+    padding-right: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+footer .follow i:hover {
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+/* --- App Store & Payment --- */
+footer .col.install {
+    flex: 1.5; /* এটাকে একটু বেশি চওড়া রাখা হলো */
+}
+
+footer .install .row img {
+    width: 130px;
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    margin: 10px 10px 15px 0;
+    cursor: pointer;
+}
+
+footer .col.install > img {
+    width: 250px; /* পেমেন্ট গেটওয়ে ইমেজ সাইজ */
+    margin-top: 10px;
+}
+
+/* --- Copyright Section --- */
+footer .copyright {
+    width: 100%;
+    text-align: center;
+    padding-top: 40px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer .copyright p {
+    color: #818ea0;
+    font-size: 13px;
+}
+
+/* =========================================
+   8. LOGIN PAGE STYLES (Split Layout)
+   ========================================= */
+
+.login-body {
+    background-color: var(--white);
+    margin: 0;
+}
+
+/* Main Split Container */
+.login-split {
+    display: flex;
+    height: 90vh; /* হেডারের পর পুরো স্ক্রিন জুড়ে থাকবে */
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Left Side - Image Section */
+.left-side.orange-theme {
+    width: 45%;
+    background-color: #ff9800; /* থিম অনুযায়ী অরেঞ্জ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+}
+
+.main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ইমেজ পুরো বক্স জুড়ে থাকবে */
+    display: block;
+}
+
+/* Right Side - Form Section */
+.right-side {
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--white);
+    padding: 40px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.form-container h1 {
+    font-size: 26px;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+/* Auth Tabs (Sign Up, Login, Admin) */
+.auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.auth-tabs button {
+    padding: 10px 20px;
+    border: 2px solid #eee;
+    background: #fff;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    color: #555;
+}
+
+.auth-tabs button.active {
+    border-color: #ff9800;
+    color: #ff9800;
+}
+
+/* Shining Effect for Sign Up */
+.auth-tabs button.shining {
+    background: #ff9800;
+    color: #fff;
+    border-color: #ff9800;
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+/* Form Inputs */
+.auth-form input {
+    width: 100%;
+    padding: 14px 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background: #f9f9f9;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.auth-form input:focus {
+    border-color: #ff9800;
+}
+
+/* Buttons */
+.btn-green {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 25px;
+    background: #4caf50;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-green:hover {
+    background: #45a049;
+}
+
+.forgot-pass {
+    display: block;
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #777;
+    text-decoration: none;
+}
+
+.verification-note {
+    font-size: 12px;
+    color: #888;
+    margin-top: 15px;
+}
+
+/* Social Login Footer */
+.form-footer {
+    margin-top: 30px;
+}
+
+.form-footer p {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 20px;
+}
+
+.social-login {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.social-login button {
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.btn-google { color: #db4437; border-color: #db4437 !important; }
+.btn-facebook { color: #4267B2; border-color: #4267B2 !important; }
+
+.no-account {
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.no-account:hover {
+    color: #ff9800;
+}
+
+/* =========================================
+   9. MENU PAGE SPECIFIC STYLES
+   ========================================= */
+
+/* --- Category Section --- */
+#category-section {
+    text-align: center;
+}
+
+.category-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.cat-card {
+    width: 120px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.cat-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* ইমেজগুলো গোল দেখাবে */
+    object-fit: cover;
+    border: 3px solid transparent;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.cat-card h5 {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Hover & Active State for Categories */
+.cat-card:hover img,
+.cat-card.active img {
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.cat-card.active h5 {
+    color: var(--primary-color);
+}
+
+/* --- Cart Count Badge (Header) --- */
+#lg-bag {
+    position: relative;
+}
+
+#cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: #ff3e3e;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Menu Product Adjustments --- */
+/* যেহেতু product1 স্টাইল আগে থেকেই আছে, তাই এখানে শুধু স্পেসিংটা ঠিক করা হলো */
+#product1.section-p1 {
+    padding-top: 0; /* ক্যাটাগরি সেকশনের নিচে গ্যাপ কমানোর জন্য */
+}
+
+#dynamic-products-menu {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 20px;
+}
+
+/* =========================================
+   10. RESERVATION PAGE STYLES
+   ========================================= */
+
+/* --- Page Header (Reservation Specific) --- */
+.reservation-header {
+    background-image: url("img/reservation1.jpg"); /* আপনার কাছে থাকা যেকোনো ব্যানারের নাম দিন */
+    background-size: cover;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    color: #fff;
+}
+
+.reservation-header h2 { color: #fff; font-size: 40px; }
+
+/* --- Booking Wrapper & Grid --- */
+.booking-wrapper {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.booking-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; /* বাম পাশে ক্যালেন্ডার বড় থাকবে */
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* --- Calendar Box --- */
+.calendar-box {
+    background: #fdfdfd;
+    padding: 25px;
+    border: 1px solid #eee;
+    border-radius: 15px;
+}
+
+.month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    text-align: center;
+}
+
+/* Calendar Days Styling (JS দিয়ে জেনারেট হবে) */
+.calendar-day {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.calendar-day:hover { background: var(--primary-color); color: #fff; }
+.calendar-day.active { background: var(--primary-color); color: #fff; }
+
+/* --- Scheduling Info Area --- */
+.scheduling-info {
+    margin-top: 30px;
+    padding: 20px;
+    background: #fff8f0;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 8px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.info-row i { color: #3c586e; font-size: 18px; }
+
+/* --- Time & Guest Selection (Right Side) --- */
+.time-box h4 { margin-bottom: 20px; font-size: 18px; }
+
+.time-slots, .guest-slots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+/* Custom Radio Buttons for Slots */
+.slot input, .g-slot input { display: none; }
+
+.slot span, .g-slot span {
+    display: block;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.slot.selected span, .g-slot.selected span {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+/* --- Action Buttons --- */
+.booking-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.btn-back {
+    padding: 15px 30px;
+    border: 1px solid #ddd;
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-book {
+    flex: 1;
+    padding: 15px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-book:hover { background: #8a4f1a; transform: translateY(-2px); }
+
+/* --- Notification Toggle --- */
+.notification-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #666;
+}
+
+/* =========================================
+   11. PREMIUM OFFERS PAGE STYLES
+   ========================================= */
+
+/* --- Offers Header --- */
+#offers-header {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("img/banner/b1.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+#offers-header h2 {
+    color: #fff;
+    font-size: 45px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+#offers-header p {
+    color: #f2e7e2;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+/* --- Offers Grid System --- */
+#offers-grid {
+    background-color: #f9f9f9;
+    padding: 60px 80px;
+}
+
+.offers-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+/* --- Luxury Offer Card --- */
+.offer-box {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.offer-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.offer-box img {
+    width: 100%;
+    height: 100%;
+    min-height: 450px;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.offer-box:hover img {
+    transform: scale(1.05);
+}
+
+/* --- Floating Buy Now Button --- */
+.buy-now-corner {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    padding: 12px 30px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(166, 97, 32, 0.4);
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+.buy-now-corner:hover {
+    background: #fff;
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* --- Overlay Effect (Optional for Luxury look) --- */
+.offer-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%);
+    pointer-events: none;
+}
+
+/* =========================================
+   12. PREMIUM TRACK ORDER STYLES
+   ========================================= */
+
+#track-order-container {
+    background-color: #f4f7f9;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.tracking-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    background: #fff;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+/* --- Top Header Details --- */
+.tracking-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.order-meta h2 { font-size: 28px; color: var(--dark-navy); }
+.order-meta h2 strong { color: var(--primary-color); }
+.order-meta p { font-size: 15px; color: #777; margin: 5px 0 0 0; }
+
+.status-indicator .badge {
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    background: #e8f6ea;
+    color: #088178;
+}
+
+/* --- Modern Stepper (Progress Bar) --- */
+.stepper-section {
+    margin: 50px 0;
+    padding: 0 20px;
+}
+
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    position: relative;
+}
+
+.stepper::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 5%;
+    width: 90%;
+    height: 4px;
+    background: #eee;
+    z-index: 1;
+}
+
+.step-item {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 25%;
+}
+
+.step-icon {
+    width: 55px;
+    height: 55px;
+    background: #fff;
+    border: 4px solid #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 20px;
+    color: #ccc;
+    transition: 0.4s;
+}
+
+.step-text h5 { font-size: 16px; margin-bottom: 5px; color: #444; }
+.step-text p { font-size: 12px; color: #999; margin: 0; }
+
+/* Active & Completed States */
+.step-item.active .step-icon {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(166, 97, 32, 0.3);
+}
+
+.step-item.completed .step-icon {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+.step-item.completed .step-text h5 { color: var(--primary-color); }
+
+/* --- Dashboard (Map & Info) --- */
+.tracking-dashboard {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.map-box {
+    border: 1px solid #eee;
+    background: #f9f9f9;
+}
+
+/* Driver & Summary Cards */
+.delivery-details { display: flex; flex-direction: column; gap: 20px; }
+
+.driver-card {
+    background: #fff8f0;
+    border: 1px solid #ffe8d1;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.driver-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.driver-info h4 { font-size: 17px; margin-bottom: 2px; }
+.driver-info p { font-size: 13px; color: #888; margin: 0; }
+
+.call-action {
+    margin-left: auto;
+    width: 45px;
+    height: 45px;
+    background: #4caf50;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.call-action:hover { background: #388e3c; transform: scale(1.1); }
+
+/* Mini Order Summary */
+.order-summary-mini {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.item-row.total {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--dark-navy);
+    margin-top: 15px;
+}
+
+#cancel-btn {
+    transition: 0.3s;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+#cancel-btn:hover { background: #ff1a1a !important; }
+
+/* =========================================
+   PIXEL PERFECT CART UI (FROM REFERENCE)
+   ========================================= */
+
+#cart-container {
+    background-color: #f6f8fa; /* হালকা অফ-হোয়াইট ব্যাকগ্রাউন্ড */
+    padding: 80px 0;
+    min-height: 100vh;
+}
+
+.cart-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 60px;
+    border-radius: 40px; /* ছবিতে থাকা অতিরিক্ত গোল কর্নার */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.03);
+}
+
+.cart-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.cart-title {
+    font-size: 45px;
+    font-weight: 800;
+    color: #111;
+    font-family: 'Poppins', sans-serif;
+}
+
+.continue-shopping {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #eee;
+    padding: 12px 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.continue-shopping:hover {
+    background: #f9f9f9;
+}
+
+/* Table Labels */
+.cart-labels {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr 0.2fr;
+    padding: 15px 0;
+    color: #999;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Individual Cart Items (Injected via JS) */
+.cart-item {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr 0.2fr;
+    align-items: center;
+    padding: 35px 0;
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.cart-item .product-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ইমেজের সাইজ ছোট এবং গোল করা হয়েছে যাতে আপনার ছবির মতো দেখায় */
+.cart-item img {
+    width: 90px;
+    height: 90px;
+    background: #f4f4f4;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.cart-item h5 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.cart-item .price, .cart-item .total {
+    font-weight: 700;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Quantity Counter (Pictures like +/-) */
+.qty-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #888;
+}
+
+/* --- Bottom Summary Section (Grey Box) --- */
+.cart-summary-box {
+    margin-top: 50px;
+    background: #f4f6f8;
+    border-radius: 30px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: flex-end;
+}
+
+.shipping-mode h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Custom Checkmark (Red dot like your reference image) */
+.radio-container input { display: none; }
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    background: #fff;
+}
+
+.radio-container input:checked + .checkmark {
+    border-color: #ff3e3e;
+    background: #ff3e3e;
+}
+
+.radio-container input:checked + .checkmark::after {
+    content: "✓";
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    left: 4px;
+    top: 0;
+}
+
+/* Checkout Side */
+.checkout-details {
+    text-align: right;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #777;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.total-amount {
+    font-size: 28px;
+    color: #111;
+    font-weight: 800;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: #5a7ec7; /* আপনার ছবির লাল বাটন */
+    color: #fff;
+    padding: 20px;
+    border: none;
+    border-radius: 18px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 25px;
+    box-shadow: 0 10px 30px rgba(34, 73, 132, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.checkout-btn:hover {
+    background: #3b426f;
+    transform: translateY(-3px);
+}
+
+
+
+
+/* =========================================
+   RESPONSIVE DESIGN (iPad & Mobile)
+   ========================================= */
+
+/* --- iPad/Tablet View (Max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    .section-p1 { padding: 40px; }
+
+    #navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        right: -300px; 
+        height: 100vh;
+        width: 300px;
+        background-color: var(--secondary-color);
+        box-shadow: 0 40px 60px rgba(0,0,0,0.1);
+        padding: 80px 0 0 40px;
+        transition: 0.3s ease-in-out;
+        z-index: 1000;
+    }
+
+    #navbar.active { right: 0; }
+
+    #mobile { display: flex; align-items: center; }
+
+    /* --- ফুড আইটেম গ্যালারি (iPad: 3 Items per row) --- */
+    #product1 .pro {
+        width: 31%; /* ৩টি করে দেখানোর জন্য অ্যাডজাস্ট করা হয়েছে */
+        margin: 10px 1%;
+        min-width: unset; /* ফিক্সড উইডথ রিমুভ করা হয়েছে */
+    }
+
+    /* হিরো ও ফিচার সেকশন */
+    #hero { height: 60vh; padding: 0 40px; }
+    #feature { flex-wrap: nowrap; overflow-x: auto; }
+    #feature .fe-box { flex: 0 0 auto; width: 130px; margin: 10px; }
+}
+
+/* --- Mobile View (Max-width: 477px) --- */
+@media (max-width: 477px) {
+    #header .logo { display: none; } 
+    
+    .search-box { width: 140px; }
+
+    /* --- ফুড আইটেম গ্যালারি (Mobile: 2 Items per row) --- */
+    #product1 .pro {
+        width: 48%; /* ২টা করে দেখানোর জন্য */
+        margin: 5px 1%;
+        padding: 10px;
+        min-width: unset;
+    }
+
+    #product1 .pro img {
+        border-radius: 15px;
+    }
+
+    #product1 .pro .des h5 {
+        font-size: 12px; /* মোবাইলে নাম কিছুটা ছোট করা হয়েছে */
+    }
+
+    /* হিরো সেকশন */
+    #hero h2 { font-size: 26px; white-space: nowrap; }
+    #hero button { padding: 10px 20px; }
+
+    /* ফিচার সেকশন */
+    #feature .fe-box { width: 105px; }
+
+    /* নিউজলেটার ও ফুটার */
+    #newsletter .form { width: 100%; }
+    footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* ফুটার ২x২ গ্রিড */
+        gap: 20px;
+    }
+}
+
+
+
+/* =========================================
+   LOGIN PAGE RESPONSIVE (iPad & Mobile)
+   ========================================= */
+
+/* --- iPad/Tablet View (Max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    .login-split {
+        height: auto; /* কন্টেন্ট অনুযায়ী হাইট অ্যাডজাস্ট হবে */
+        min-height: 90vh;
+    }
+
+    .left-side.orange-theme {
+        width: 40%; /* ইমেজ সাইড কিছুটা ছোট করা হয়েছে */
+    }
+
+    .right-side {
+        width: 60%;
+        padding: 30px;
+    }
+
+    .form-container {
+        max-width: 380px; /* আইপ্যাডে ফর্ম কিছুটা ছোট থাকবে */
+    }
+
+    .form-container h1 {
+        font-size: 22px;
+    }
+
+    .auth-tabs button {
+        padding: 8px 15px; /* বাটন সাইজ কিছুটা কমানো হয়েছে */
+        font-size: 14px;
+    }
+
+    .auth-form input {
+        padding: 12px 15px;
+    }
+}
+
+/* --- Mobile View (Max-width: 477px) --- */
+@media (max-width: 477px) {
+    #navbar{
+        transition: 0.3s ease;
+    }
+    .left-side.orange-theme {
+        display: none; /* মোবাইলে ইমেজ পুরোপুরি হাইড */
+    }
+
+    .right-side {
+        width: 100%; /* ফর্ম পুরো স্ক্রিন জুড়ে থাকবে */
+        padding: 40px 20px;
+    }
+
+    .form-container {
+        max-width: 100%;
+    }
+
+    .form-container h1 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .auth-tabs {
+        gap: 5px;
+    }
+
+    .auth-tabs button {
+        padding: 10px 12px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .social-login {
+        flex-direction: column; /* মোবাইলে গুগল ও ফেসবুক বাটন একটির নিচে আরেকটি */
+        gap: 10px;
+    }
+
+    .social-login button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* --- Navigation Consistency (Same as Homepage) --- */
+@media (max-width: 1024px) {
+    #navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        right: -300px;
+        height: 100vh;
+        width: 300px;
+        background-color: var(--secondary-color);
+        box-shadow: 0 40px 60px rgba(0,0,0,0.1);
+        padding: 80px 0 0 40px;
+        transition: 0.3s;
+        z-index: 1000;
+    }
+
+    #navbar.active { right: 0; }
+
+    #navbar #close {
+        display: initial;
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        color: var(--text-color);
+        font-size: 24px;
+    }
+
+    #mobile { display: flex; align-items: center; }
+
+    #mobile i {
+        font-size: 24px;
+        padding-left: 20px;
+        cursor: pointer;
+    }
+}
+
+
+
+
+/* =========================================
+   MENU PAGE RESPONSIVE UPDATES
+   ========================================= */
+
+/* --- iPad/Tablet View (Max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    /* Header Adjustments */
+    #header .logo { width: 100px; }
+    .search-box { width: 180px; }
+
+    /* Category - Single Line Horizontal Scroll */
+    .category-wrapper {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+    }
+    .category-container {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 15px;
+    }
+    .cat-card { flex: 0 0 auto; width: 100px; }
+    .cat-card img { width: 80px; height: 80px; }
+
+    /* Product Grid - 3 Items per row */
+    #product1 .pro {
+        width: 31%;
+        margin: 10px 1%;
+    }
+}
+
+/* --- Mobile View (Max-width: 477px) --- */
+@media (max-width: 477px) {
+    /* Logo smaller on Mobile */
+    #header .logo { width: 70px; }
+
+    /* Search bar dynamic width */
+    .search-wrapper { flex: 1; margin: 0 10px; }
+    .search-box { width: 100%; max-width: 150px; height: 35px; }
+
+    /* Category Scale for Mobile */
+    .cat-card img { width: 70px; height: 70px; }
+    .cat-card h5 { font-size: 13px; }
+
+    /* Product Grid - 3 Items per row (Your request) */
+    #product1 .pro {
+        width: 31%; /* ৩টি করে দেখানোর জন্য */
+        margin: 5px 1%;
+        padding: 5px;
+    }
+    #product1 .pro .des h5 { font-size: 10px; } /* ছোট স্ক্রিনে টেক্সট অ্যাডজাস্ট */
+    #product1 .pro .des h4 { font-size: 12px; }
+    #product1 .pro .cart { width: 30px; height: 30px; line-height: 30px; bottom: 10px; right: 5px; }
+
+    /* Footer Responsive */
+    footer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    footer .col.install { grid-column: span 2; }
+}
+
+/* Hide scrollbar for category-wrapper */
+.category-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+/* =========================================
+   RESERVATION PAGE RESPONSIVE
+   ========================================= */
+
+/* --- iPad/Tablet View (Max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    /* হিরো সেকশন ছোট করা */
+    .reservation-header {
+        height: 30vh;
+        background-position: center;
+    }
+    .reservation-header h2 { font-size: 30px; }
+    .reservation-header p { font-size: 14px; }
+
+    /* বুকিং গ্রিড অ্যাডজাস্টমেন্ট */
+    .booking-grid {
+        grid-template-columns: 1fr; /* আইপ্যাডে ক্যালেন্ডার এবং টাইম একটার নিচে আরেকটা আসবে */
+        gap: 30px;
+    }
+
+    /* পিক টাইম এবং নাম্বার অফ গেস্ট পাশাপাশি রাখা */
+    .time-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+    }
+
+    .time-box h4 { grid-column: span 2; } /* টাইটেল পুরো জায়গা নিবে */
+
+    .time-slots, .guest-slots {
+        grid-template-columns: 1fr; /* বক্সের ভেতরে স্লটগুলো এক লাইনে থাকবে */
+    }
+
+    .booking-actions {
+        grid-column: span 2; /* বাটনগুলো পুরো চওড়া হবে */
+    }
+
+    .booking-wrapper { padding: 25px; }
+}
+
+/* --- Mobile View (Max-width: 477px) --- */
+@media (max-width: 477px) {
+    /* ১. হিরো সেকশন পুরোপুরি হাইড */
+    #page-header.reservation-header {
+        display: none;
+    }
+
+    /* ২. সেকশন টাইটেল এবং সিরিয়াল সেটিংস */
+    .section-p1 { padding: 20px; }
+    
+    .booking-wrapper {
+        padding: 15px;
+        box-shadow: none;
+    }
+
+    .booking-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    /* ৩. ক্যালেন্ডার এবং টাইম বক্স সিরিয়ালি আসবে */
+    .calendar-box, .time-box {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .time-box {
+        display: block; /* মোবাইলে একটার নিচে একটা */
+    }
+
+    .time-slots, .guest-slots {
+        grid-template-columns: repeat(2, 1fr); /* মোবাইলে স্লটগুলো ২ কলামে থাকবে */
+        gap: 8px;
+    }
+
+    /* ৪. Scheduling Info (বুকিং অবস্থা) */
+    .scheduling-info {
+        order: 3; /* এটি ক্যালেন্ডার ও টাইম এর নিচে আসবে */
+        margin-top: 20px;
+        padding: 15px;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    #res-guests {
+        border-left: none !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    /* ৫. বুকিং বাটন */
+    .booking-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-back { width: 100%; order: 2; }
+    .btn-book { width: 100%; order: 1; }
+}
+
+
+
+/* =========================================
+   OFFERS PAGE RESPONSIVE UPDATES
+   ========================================= */
+
+/* --- iPad/Tablet View (Max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    /* হিরো সেকশন সাইজ ফিক্সড করা */
+    #offers-header {
+        height: 30vh;
+        padding: 0 40px;
+        background-position: center;
+    }
+    #offers-header h2 { font-size: 30px; }
+
+    /* এক লাইনে ২টি করে অফার ব্যানার */
+    .offers-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* ২টির পর ২টির জন্য */
+        gap: 20px;
+    }
+
+    #offers-grid {
+        padding: 40px;
+    }
+
+    .offer-box img {
+        min-height: 350px; /* আইপ্যাডে উচ্চতা কিছুটা কমানো */
+    }
+}
+
+/* --- Mobile View (Max-width: 477px) --- */
+@media (max-width: 477px) {
+    /* ১. হিরো সেকশন পুরোপুরি রিমুভ (আপনার চাহিদা অনুযায়ী) */
+    #offers-header {
+        display: none;
+    }
+
+    /* ২. অফার ব্যানারগুলো একটার পর একটা (Single Column) */
+    .offers-container {
+        display: flex;
+        flex-direction: column;
+        gap: 40px; /* ব্যানারগুলোর মাঝে গ্যাপ */
+        padding: 20px 0;
+    }
+
+    #offers-grid {
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    /* ৩. ব্যানারগুলো ফোনের মাঝখানে আসলে একটু উপরে উঠে থাকার ইফেক্ট */
+    /* আমরা এখানে 'scroll-snap' ব্যবহার করছি যাতে স্ক্রল করলে ব্যানারগুলো মাঝখানে আটকে যায় */
+    .offers-container {
+        scroll-snap-type: y mandatory;
+    }
+
+    .offer-box {
+        scroll-snap-align: center;
+        margin-bottom: 20px;
+        transform: scale(0.95); /* ডিফল্টভাবে সামান্য ছোট থাকবে */
+        transition: 0.5s ease;
+    }
+
+    /* যখন স্ক্রিন স্ক্রল করবেন, মাঝখানের ব্যানারটি বড় এবং উপরে উঠবে */
+    /* (বি:দ্র: এটি পুরোপুরি অটোমেটিক করতে জাভাস্ক্রিপ্ট লাগে, তবে সিএসএস এ হোভার বা ফোকাসে এটি করা যায়) */
+    .offer-box:active, .offer-box:hover {
+        transform: scale(1.02) translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .offer-box img {
+        min-height: 300px;
+        border-radius: 15px;
+    }
+
+    /* ৪. বাই নাও বাটন মোবাইলের জন্য পজিশন */
+    .buy-now-corner {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+}
+
+
+
+/* =========================================
+   CART PAGE RESPONSIVE UPDATES
+   ========================================= */
+
+/* --- iPad/Tablet View (Max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    .cart-wrapper {
+        padding: 30px;
+        border-radius: 30px;
+    }
+
+    .cart-title { font-size: 32px; }
+
+    /* লেবেল হাইড করা হচ্ছে কারণ আইটেমগুলো এখন স্ট্যাক আকারে থাকবে */
+    .cart-labels { display: none; }
+
+    /* আইটেম লেআউট পরিবর্তন: ইমেজের নিচে নাম */
+    .cart-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+        padding: 25px 0;
+    }
+
+    .cart-item .product-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* সামারি বক্স অর্ডার পরিবর্তন */
+    .cart-summary-box {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* --- Mobile View (Max-width: 477px) --- */
+@media (max-width: 477px) {
+    #cart-container { padding: 40px 15px; }
+
+    /* টপ বার: My Cart এবং Continue Shopping এক লাইনে */
+    .cart-top-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .cart-title { font-size: 22px; margin: 0; }
+
+    .continue-shopping {
+        font-size: 11px;
+        padding: 8px 12px;
+        border-radius: 10px;
+    }
+
+    .continue-shopping i { font-size: 10px; }
+
+    /* কার্ট আইটেম: একটার নিচে একটা সিরিয়ালি */
+    .cart-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .cart-item img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .cart-item h5 { font-size: 16px; margin-top: 5px; }
+
+    .price, .total, .qty-box {
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    /* ডিলিট বাটন আলাদা করে নিচে দেখানো */
+    .cart-item .remove-btn {
+        color: #ff4d4d;
+        margin-top: 10px;
+    }
+
+    /* সামারি বক্স সেটিংস */
+    .cart-summary-box {
+        padding: 25px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column; /* একটার নিচে একটা */
+    }
+
+    /* শিপিং মোড উপরে থাকবে */
+    .shipping-mode {
+        order: 1; 
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .shipping-mode h4 { font-size: 16px; margin-bottom: 15px; }
+
+    .radio-container { font-size: 13px; }
+
+    /* চেকআউট সেকশন নিচে থাকবে */
+    .checkout-details {
+        order: 2;
+        width: 100%;
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+    }
+
+    .summary-row { font-size: 14px; margin-bottom: 10px; }
+
+    .checkout-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 15px;
+        border-radius: 12px;
+    }
+}

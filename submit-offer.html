@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Offer - Foodie Hub Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css"> </head>
+<body>
+
+<div class="admin-container">
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>FOODIE HUB</h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="admin-ds.html"><i class="fa-solid fa-satellite-dish"></i> Live Orders</a></li>
+                <li><a href="table-booking.html"><i class="fa-solid fa-utensils"></i> Table Booking</a></li>
+                <li><a href="totalsale.html"><i class="fa-solid fa-chart-line"></i> Total Sale</a></li>
+                <li><a href="submit-product.html"><i class="fa-solid fa-plus-circle"></i> Submit Food</a></li>
+                <li class="active"><a href="submit-offer.html"><i class="fa-solid fa-tags"></i> Submit Offer</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer"><a href="index.html"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></div>
+    </aside>
+
+    <main class="main-content">
+        <header class="admin-header">
+            <div class="header-title">
+                <h1>Offer Management</h1>
+                <p>Manage your special deals and discounts</p>
+            </div>
+            <button class="add-offer-btn" id="openAddModal">
+                <i class="fa-solid fa-bolt"></i> Create Offer
+            </button>
+        </header>
+
+        <div class="offer-grid-container">
+            <div class="table-info">
+                <h3>Active Offers (<span id="offer-count">0</span>)</h3>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Offer ID</th>
+                            <th>Image</th>
+                            <th>Offer Name</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="offer-list-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal-overlay" id="offerModal" style="display: none;">
+    <div class="modal-content">
+        <h3 id="modalTitle">Create New Offer</h3>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label>Offer Name</label>
+                <input type="text" id="o-name" placeholder="e.g. Ramadan Special">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Price ($)</label>
+                <input type="number" id="o-price" placeholder="Original Price">
+            </div>
+            <div class="form-group">
+                <label>Discount (%)</label>
+                <input type="number" id="o-discount" placeholder="e.g. 20">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Banner/Image URL</label>
+            <input type="text" id="o-img" placeholder="https://image-link.com">
+        </div>
+
+        <div class="form-group">
+            <label>Offer Details</label>
+            <textarea id="o-about" rows="3" placeholder="Terms and conditions..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+            <button class="cancel-btn" id="closeModalBtn">Close</button>
+            <button class="save-btn" id="saveOfferBtn">Publish Offer</button>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, doc, deleteDoc, addDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import firebaseConfig from "./firebase-config.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const offerListBody = document.getElementById('offer-list-body');
+    const offerCountEl = document.getElementById('offer-count');
+    const offerModal = document.getElementById('offerModal');
+    const saveOfferBtn = document.getElementById('saveOfferBtn');
+    
+    let editId = null;
+
+    // ১. অফার লিস্ট লোড করা (Real-time)
+    onSnapshot(collection(db, "offers"), (snapshot) => {
+        offerListBody.innerHTML = "";
+        let count = 0;
+
+        snapshot.forEach((docSnap) => {
+            const offer = docSnap.data();
+            const id = docSnap.id;
+            count++;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>#${id.substring(0, 6).toUpperCase()}</td>
+                <td><img src="${offer.image}" alt="offer" class="table-img"></td>
+                <td><strong>${offer.name}</strong></td>
+                <td>$${offer.price}</td>
+                <td><span class="badge-discount">${offer.discount}% OFF</span></td>
+            `;
+
+            const actionTd = document.createElement('td');
+            
+            const editBtn = document.createElement('i');
+            editBtn.className = "fa-solid fa-edit btn-icon-edit";
+            editBtn.onclick = () => openModal('edit', id, offer);
+
+            const deleteBtn = document.createElement('i');
+            deleteBtn.className = "fa-solid fa-trash-alt btn-icon-delete";
+            deleteBtn.onclick = async () => {
+                if(confirm("Are you sure to remove this offer?")) {
+                    await deleteDoc(doc(db, "offers", id));
+                }
+            };
+
+            actionTd.appendChild(editBtn);
+            actionTd.appendChild(deleteBtn);
+            tr.appendChild(actionTd);
+            offerListBody.appendChild(tr);
+        });
+        offerCountEl.innerText = count;
+    });
+
+    // ২. মোডাল কন্ট্রোল
+    const openModal = (type, id = null, data = null) => {
+        offerModal.style.display = "flex";
+        if (type === 'edit') {
+            editId = id;
+            document.getElementById('modalTitle').innerText = "Update Offer";
+            document.getElementById('o-name').value = data.name;
+            document.getElementById('o-price').value = data.price;
+            document.getElementById('o-discount').value = data.discount;
+            document.getElementById('o-img').value = data.image;
+            document.getElementById('o-about').value = data.about || "";
+            saveOfferBtn.innerText = "Update Now";
+        } else {
+            editId = null;
+            document.getElementById('modalTitle').innerText = "Create New Offer";
+            saveOfferBtn.innerText = "Publish Offer";
+            clearInputs();
+        }
+    };
+
+    const closeModal = () => {
+        offerModal.style.display = "none";
+    };
+
+    const clearInputs = () => {
+        document.querySelectorAll('.modal-content input, .modal-content textarea').forEach(input => input.value = "");
+    };
+
+    // ৩. অফার সেভ/আপডেট
+    saveOfferBtn.onclick = async () => {
+        const offerData = {
+            name: document.getElementById('o-name').value,
+            price: document.getElementById('o-price').value,
+            discount: document.getElementById('o-discount').value,
+            image: document.getElementById('o-img').value,
+            about: document.getElementById('o-about').value,
+            timestamp: new Date()
+        };
+
+        if(!offerData.name || !offerData.price || !offerData.image) {
+            alert("Please fill necessary fields!");
+            return;
+        }
+
+        try {
+            if (editId) {
+                await updateDoc(doc(db, "offers", editId), offerData);
+                alert("Offer Updated!");
+            } else {
+                await addDoc(collection(db, "offers"), offerData);
+                alert("New Offer Published!");
+            }
+            closeModal();
+        } catch (err) {
+            alert("Error: " + err.message);
+        }
+    };
+
+    document.getElementById('openAddModal').onclick = () => openModal('add');
+    document.getElementById('closeModalBtn').onclick = closeModal;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Foodie Hub</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="logo"><h2>FOODIE HUB</h2></div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="admin-ds.html"><i class="fa-solid fa-satellite-dish"></i> Live Orders</a></li>
+                    <li><a href="table-booking.html"><i class="fa-solid fa-table"></i> Table Booking</a></li>
+                    <li><a href="totalsale.html"><i class="fa-solid fa-chart-line"></i> Total Sale</a></li>
+                    <li><a href="submit-product.html"><i class="fa-solid fa-plus-circle"></i> Submit Food</a></li>
+                    <li><a href="submit-offer.html"><i class="fa-solid fa-tags"></i> Submit Offer</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer"><a href="index.html"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></div>
+        </aside>
+        <main class="main-content">
+            <header class="admin-header">
+                <div class="search-bar"><i class="fa-solid fa-search"></i><input type="text" placeholder="Search orders..."></div>
+            </header>
+            <section class="dashboard-overview">
+                <h1>Live Orders Dashboard</h1>
+                <div class="stats-cards">
+                    <div class="card blue"><h3 id="total-orders-count">0</h3><p>Total Orders</p></div>
+                    <div class="card green"><h3 id="completed-orders-count">0</h3><p>Completed</p></div>
+                    <div class="card orange"><h3 id="in-process-count">0</h3><p>In Process</p></div>
+                </div>
+                <div class="table-container">
+                    <div class="table-header"><h2>Recent Orders</h2></div>
+                    <table>
+                        <thead><tr><th>Order ID</th><th>Customer Name</th><th>Location</th><th>Time</th><th>Status</th><th>Action</th></tr></thead>
+                        <tbody id="live-order-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="auth.js"></script>
+</body>
+</html>

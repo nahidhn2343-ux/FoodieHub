@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Hub - My Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="cart-container" class="section-p1">
+        <div class="cart-wrapper">
+            <div class="cart-top-bar">
+                <h1 class="cart-title">My Cart</h1>
+                <a href="meno.html" class="continue-shopping">
+                    <i class="fa-solid fa-arrow-left"></i> Continue shopping
+                </a>
+            </div>
+
+            <div class="cart-labels">
+                <span>PRODUCT</span>
+                <span>PRICE</span>
+                <span>QTY</span>
+                <span>TOTAL</span>
+            </div>
+
+            <hr class="cart-hr">
+
+            <div id="cart-items-display"></div>
+
+            <div class="cart-summary-box">
+                <div class="shipping-mode">
+                    <h4>Choose shipping mode:</h4>
+                    <label class="radio-container">
+                        <input type="radio" checked="checked" name="shipping">
+                        <span class="checkmark"></span>
+                        Store pickup (In 20 min) • <strong>FREE</strong>
+                    </label>
+                    <label class="radio-container">
+                        <input type="radio" name="shipping">
+                        <span class="checkmark"></span>
+                        Delivery at home • <strong>FREE</strong>
+                    </label>
+                </div>
+                
+                <div class="checkout-details">
+                    <div class="summary-row">
+                        <span>SUBTOTAL</span>
+                        <span id="subtotal-val">$0.00</span>
+                    </div>
+                    <div class="summary-row total-amount">
+                        <span>TOTAL</span>
+                        <span id="total-val">$0.00</span>
+                    </div>
+                    <button class="checkout-btn" id="main-checkout-btn">
+                        Checkout <span id="btn-total">$0.00</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="app.js" defer></script>
+</body>
+</html>
