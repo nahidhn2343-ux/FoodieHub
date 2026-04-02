@@ -2,7 +2,10 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword 
+    signInWithEmailAndPassword,
+    GoogleAuthProvider, 
+    FacebookAuthProvider, 
+    signInWithPopup 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { 
     getFirestore, 
@@ -23,6 +26,8 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // --- ১. Authentication Functions ---
+
+// ইমেইল সাইন আপ
 window.handleSignUp = () => {
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-pass').value;
@@ -32,6 +37,7 @@ window.handleSignUp = () => {
         .catch((error) => alert(error.message));
 };
 
+// ইমেইল লগইন
 window.handleLogin = () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-pass').value;
@@ -39,6 +45,34 @@ window.handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
         .then(() => { alert("Login Successful!"); window.location.href = "index.html"; })
         .catch(() => alert("Invalid credentials"));
+};
+
+// গুগল লগইন (নতুন যুক্ত করা হয়েছে)
+window.handleGoogleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            alert("Google Login Successful!");
+            window.location.href = "index.html";
+        })
+        .catch((error) => {
+            console.error("Google Error:", error);
+            alert("Google Login Failed: " + error.message);
+        });
+};
+
+// ফেসবুক লগইন (নতুন যুক্ত করা হয়েছে)
+window.handleFacebookLogin = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            alert("Facebook Login Successful!");
+            window.location.href = "index.html";
+        })
+        .catch((error) => {
+            console.error("Facebook Error:", error);
+            alert("Facebook Login Failed: " + error.message);
+        });
 };
 
 window.handleAdminLogin = () => {
@@ -106,7 +140,7 @@ window.deleteItem = async (id) => {
     if(confirm("Delete this order?")) await deleteDoc(doc(db, "orders", id));
 };
 
-// --- ৪. Product Management (Fixed Input Logic) ---
+// --- ৪. Product Management ---
 let currentEditId = null;
 
 window.openModal = (type, dataStr = null) => {
@@ -136,7 +170,6 @@ window.openModal = (type, dataStr = null) => {
 
 window.closeModal = () => { document.getElementById('productModal').style.display = "none"; };
 
-// প্রোডাক্ট সেভ করার মেইন ফাংশন (Fix: সরাসরি ইনপুট রিড করা হচ্ছে)
 const saveOrUpdateProduct = async () => {
     const nameInput = document.getElementById('m-name');
     const priceInput = document.getElementById('m-price');
@@ -172,11 +205,17 @@ const saveOrUpdateProduct = async () => {
     }
 };
 
-// বাটন ক্লিক ইভেন্ট লিসেনার (Fix: নিশ্চিত করা হয়েছে যেন এটি কাজ করে)
 document.addEventListener('click', (e) => { 
     if (e.target && e.target.id === 'saveBtn') {
         e.preventDefault();
         saveOrUpdateProduct();
+    }
+    // গুগল ও ফেসবুক বাটনের জন্য ইভেন্ট লিসেনার (নিরাপত্তার জন্য যোগ করা হয়েছে)
+    if (e.target && (e.target.id === 'google-login-btn' || e.target.closest('#google-login-btn'))) {
+        window.handleGoogleLogin();
+    }
+    if (e.target && (e.target.id === 'facebook-login-btn' || e.target.closest('#facebook-login-btn'))) {
+        window.handleFacebookLogin();
     }
 });
 
@@ -275,14 +314,11 @@ const loadDashboardData = () => {
 
 // --- ৬. Sale Analytics & Chart ---
 let salesChart;
-
 const setupChart = (weeklyData) => {
     const canvas = document.getElementById('salesChart');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    
     if (salesChart) salesChart.destroy();
-
     salesChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -300,11 +336,7 @@ const setupChart = (weeklyData) => {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: { color: '#f5f5f5' },
-                    ticks: { stepSize: 20 }
-                },
+                y: { beginAtZero: true, grid: { color: '#f5f5f5' }, ticks: { stepSize: 20 } },
                 x: { grid: { display: false } }
             }
         }
@@ -332,7 +364,6 @@ const loadSaleAnalytics = () => {
             const data = docSnap.data();
             const amount = parseFloat(data.total?.toString().replace(/[^\d.]/g, '') || 0);
             const isConfirmed = data.status === "Confirmed";
-            
             const orderDate = new Date(data.orderTime);
             const orderYear = orderDate.getFullYear().toString();
             const orderMonth = orderDate.toLocaleString('default', { month: 'long' });
@@ -341,10 +372,7 @@ const loadSaleAnalytics = () => {
                 overAll += amount;
                 if (data.orderTime?.includes(todayStr)) dayTotal += amount;
                 if (isConfirmed) compTotal += amount; else procTotal += amount;
-
-                if (!isNaN(orderDate.getDay())) {
-                    weeklyStats[orderDate.getDay()] += amount;
-                }
+                if (!isNaN(orderDate.getDay())) weeklyStats[orderDate.getDay()] += amount;
             }
         });
 
@@ -353,7 +381,6 @@ const loadSaleAnalytics = () => {
         if (ui.comp) ui.comp.innerText = `$ ${compTotal.toFixed(2)}`;
         if (ui.proc) ui.proc.innerText = `$ ${procTotal.toFixed(2)}`;
         if (ui.chartT) ui.chartT.innerText = `$ ${overAll.toFixed(2)}`;
-        
         setupChart(weeklyStats);
     });
 };
@@ -368,14 +395,12 @@ document.addEventListener('change', (e) => {
 window.placeOrder = async (customerData) => {
     const cart = JSON.parse(localStorage.getItem('foodCart')) || [];
     const booking = JSON.parse(localStorage.getItem('tempBooking'));
-    
     let orderPayload = {
         ...customerData,
         orderTime: new Date().toLocaleString('en-US'),
         status: "Pending",
         createdAt: new Date().getTime()
     };
-
     try {
         if (booking) {
             orderPayload.type = "Table Booking";
@@ -386,16 +411,10 @@ window.placeOrder = async (customerData) => {
             orderPayload.items = cart;
             const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) * (item.qty || 1)), 0);
             orderPayload.total = `$ ${total.toFixed(2)}`;
-        } else {
-            throw new Error("Cart is empty!");
-        }
-
+        } else { throw new Error("Cart is empty!"); }
         await addDoc(collection(db, "orders"), orderPayload);
         return true;
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
-    }
+    } catch (error) { throw error; }
 };
 
 // Initialization on Load
